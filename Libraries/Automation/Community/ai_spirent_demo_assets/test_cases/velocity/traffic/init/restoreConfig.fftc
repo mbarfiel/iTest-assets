@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<testCase version="6.1.0.e2e4ec0">
+    <execution>
+        <parameters version="6.1.0.e2e4ec0">
+            <parameters escape="true">
+                <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+                    <router1_config pt:description="Base config for Router1">${topology/resources/Router1/default_config}</router1_config>
+                    <router1_config_tftp_ip pt:description="TFTP Server Router 1">${topology/resources/Router1/tftp_server}</router1_config_tftp_ip>
+                    <router2_config pt:description="Base config for Router2">${topology/resources/Router2/default_config}</router2_config>
+                    <router2_config_tftp_ip pt:description="TFTP Server Router 2">${topology/resources/Router2/tftp_server}</router2_config_tftp_ip>
+                </parameters>
+            </parameters>
+        </parameters>
+    </execution>
+    <testbed>project://t_demo_tests/topologies/velocity/logical/CiscoSystemTest.tbml</testbed>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="b041a318-d255-4310-a278-b0824bfd6c9a" action="comment" async="true">
+                    <threadName>cfg</threadName>
+                    <command>
+                        <body>Load router 1 base config</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="1e19975a-6943-4cc1-8952-38aa1df8be11" action="open" session="Router1">
+                            <command>
+                                <body>device:Router1#telnet</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                                <stepProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                                <sessionProperties type="com.fnfr.svt.applications.telnet.documents.TelnetSessionProperties"/>
+                                <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="01f404bb-2733-4847-a779-cf7b43da7e02" action="login" session="Router1" normalOffset="0.441" estimatedStepExecutionTime="0.848">
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="d0167e84-0134-4eb8-a994-e0656bef5727" action="restoreRunningConfigTftp" session="Router1" normalOffset="61.432" estimatedStepExecutionTime="5.258">
+                            <command>
+                                <body> -tftpServerIp [param router1_config_tftp_ip] -filename [param router1_config]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="ca2d946c-9708-4608-9095-11a78e29a881" action="comment" async="true">
+                    <threadName>cfg</threadName>
+                    <command>
+                        <body>Load router 2 base config</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="39a1fb3a-b969-4cf9-868d-85216e90ddbc" action="open" session="Router2" normalOffset="13.218">
+                            <command>
+                                <body>device:Router2#telnet</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                                <stepProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                                <sessionProperties type="com.fnfr.svt.applications.telnet.documents.TelnetSessionProperties"/>
+                                <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="c171247c-f940-44e3-b610-d2ec02f726bc" action="login" session="Router2" normalOffset="0.181" estimatedStepExecutionTime="0.855">
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="c24c9d6b-b682-4f2b-ae92-4ced93e9db7d" action="restoreRunningConfigTftp" session="Router2" normalOffset="42.06" estimatedStepExecutionTime="4.956">
+                            <command>
+                                <body> -tftpServerIp [param router2_config_tftp_ip] -filename [param router2_config]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="43d36556-d48d-421e-98f3-d208f3f98d4a" action="comment">
+                    <command>
+                        <body>Wait for configs to load and close sessions</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="41b7cab1-1c75-4723-8093-12e082805820" action="waitthread">
+                            <command>
+                                <body>cfg</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.execution.kernel.WaitThreadPropertyGroup"/>
+                        </item>
+                        <item guid="1c88057a-9122-4d50-ab38-91aca6946e00" action="close" session="Router2" normalOffset="10.054">
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                        </item>
+                        <item guid="e96c2f69-f450-4323-a5f1-6c85d2fd2411" action="close" session="Router1" normalOffset="2.369">
+                            <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

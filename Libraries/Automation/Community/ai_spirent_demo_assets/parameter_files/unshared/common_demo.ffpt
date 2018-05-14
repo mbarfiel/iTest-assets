@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ParameterTree version="7.0.1.201802131446">
+    <parameters escape="true">
+        <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+            <logins>
+                <jira>
+                    <username pt:description="This is a valid username" pt:mask="true">ECfyV0EM6mvwammPrSnywg==</username>
+                    <password pt:description="This is a valid password" pt:mask="true">WAI5WMfQFycJor6ZZIWzzg==</password>
+                </jira>
+            </logins>
+        </parameters>
+    </parameters>
+</ParameterTree>

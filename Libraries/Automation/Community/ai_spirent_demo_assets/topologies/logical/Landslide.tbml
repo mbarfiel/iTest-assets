@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0">
+  <header>
+    <name>Landslide</name>
+    <description>Landslide test topology</description>
+    <property name="rmGuid">37a23734-a90e-4c91-95d7-c1b6df43205d</property>
+    <property name="dateModified">2017-11-29T10:46:45.722-06:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">6.1.0.e2e4ec0</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="59e6ee9a-59ee-45c2-bb49-014dced73aff" id="i95507544-f41d-4e0c-a9fa-a04a1306ffc0" shared="true" type="device">
+        <boundary height="100" width="100" x="997" y="212"/>
+        <property isimportant="false" name="name">PC1</property>
+        <property isimportant="false" name="inventoryName">PC</property>
+        <property isimportant="false" name="description"/>
+        <property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=59e6ee9a-59ee-45c2-bb49-014dced73aff</property>
+        <property isimportant="false" name="ilo_shape">RECTANGLE</property>
+        <property name="ilo_iconId">c918ce52-936d-41cb-b776-b3c160733cc7</property>
+        <propertyCollection name="System Identification">
+<property id="28639fa2-ff6a-438d-869f-aa519ba8e94b" name="ipAddress" type="text">localhost</property>
+<property id="12c99ec3-b8e9-f396-79a3-ae29c4e520a7" name="Hostname" type="text"/>
+<property id="87fc6478-2615-42e0-4836-e64db19be90c" name="Make" type="text"/>
+<property id="8d5aae31-d4b8-3e3b-cdf7-ad33f3636132" name="Model" type="text"/>
+<property id="b56ead77-070e-688c-3b95-248da7b26d91" name="Serial Number" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Location Information">
+<property id="f42e0723-3e77-cd87-a2ce-b9fe9aed52f3" name="Facility" type="text"/>
+<property id="e5267057-b5ec-c162-4de8-24b6f40b5ab1" name="Room" type="text"/>
+<property id="80cfbfd6-a6ef-5fed-9222-7a10386e217e" name="Floor Position" type="text"/>
+</propertyCollection>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Wireshark" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.svt.applications.wireshark</baseApplication>
+              <sessionProperties type="com.fnfr.svt.applications.wireshark.WiresharkSessionProperties">
+                <sessionbuilderInitializeAction type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+              </sessionProperties>
+              <baseProfile>project://d_wireshark/referenceSessionProfile/wireshark.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+          <session baseSessionProfile="" name="http" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.svt.applications.http</baseApplication>
+              <sessionProperties type="com.fnfr.svt.applications.http.HttpSessionProperties">
+                <sessionbuilderInitializeAction type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+              </sessionProperties>
+              <baseProfile>project://d_http/session_profiles/HTTP_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+      <resource guid="147ecdeb-33bc-4d46-97f6-327e81bd4805" id="id2a3c2f7-5e0a-4384-a79e-54e84763eaa1" shared="true" type="device">
+        <boundary height="100" width="100" x="668" y="222"/>
+        <property isimportant="false" name="name">TAS1</property>
+        <property isimportant="false" name="inventoryName">IRL-Landslide-TAS4</property>
+        <property isimportant="false" name="description">LandSlide test equipment
+login info: sms/a1b2c3d4</property>
+        <property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=147ecdeb-33bc-4d46-97f6-327e81bd4805</property>
+        <property isimportant="false" name="ilo_shape">RECTANGLE</property>
+        <property name="ilo_iconId">17c5fb01-7a21-440f-8df2-247f4a11dbff</property>
+        <propertyCollection name="System Identification">
+<property id="f35ab271-2424-4cfa-9ad1-97d23ab94f8e" name="ipAddress" type="text">10.108.36.21</property>
+<property id="c73b8d02-06c1-4045-8417-66448f96bf55" name="Hostname" type="text">IRL-Landslide-TAS4</property>
+<property id="17cb9438-37c4-4ee6-95c0-b8521085e378" name="Make" type="text">Spirent</property>
+<property id="1fb9dd42-1824-4296-9419-d013e7c0429e" name="Model" type="text">TAS Virtual</property>
+<property id="e50fffe6-d515-4164-acec-de5dee191ef3" name="Serial Number" type="text">001</property>
+</propertyCollection>
+        <propertyCollection name="Location Information">
+<property id="a5dc4fac-4594-4a55-ac1a-de2adb2a3774" name="Facility" type="text">Calabasas</property>
+<property id="a9ae3f14-a787-471b-b30d-dffe95e05000" name="Room" type="text">2nd Floor Lab</property>
+<property id="4b582477-7e79-4065-805b-42ba0d4578dd" name="Floor Position" type="text">2</property>
+</propertyCollection>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Spirent_Landslide_REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.spirent.itest.applications.landsliderest</baseApplication>
+              <sessionProperties transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject"/>
+              <baseProfile>project://d_landslide/session_profiles/Spirent_Landslide_REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+    </resources>
+    <connectivity/>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>

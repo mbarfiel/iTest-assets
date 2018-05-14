@@ -1,0 +1,768 @@
+<?xml version="1.0"?>
+<testCase version="7.0.0.bc91e6c">
+    <execution>
+        <parameters version="7.0.0.bc91e6c">
+            <parameters escape="true">
+                <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+                    <vsphere>
+                        <hostname_ip pt:description="Valid hostname or IP addres">10.108.32.127</hostname_ip>
+                        <username pt:description="username">root</username>
+                        <password pt:description="password">solutions</password>
+                    </vsphere>
+                    <velocity>
+                        <url pt:description="Velcoity server URL (REST)">https://10.108.36.207</url>
+                        <username pt:description="username">test01</username>
+                        <password pt:description="password">test01</password>
+                    </velocity>
+                </parameters>
+            </parameters>
+        </parameters>
+    </execution>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="fb2addf8-9ea7-425f-be09-f95362584976" action="open" session="velocity">
+                    <command>
+                        <body>application:com.fnfr.itest.applications.webservices.restful</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="[param velocity/url]" url.inherit="false">
+                            <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="[param velocity/username]" user.inherit="false" password.masked="true" password="BCJm/oZUS6yK+6EfS8wtyurYANzZETwjSBzQGhgYreQ=" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        </sessionProperties>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="37db0804-dd98-4b71-8716-0b07e2b67895" action="comment" skip="true">
+                    <command>
+                        <body>tbml queries - debug</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="19fddf21-4636-41dc-84d2-3d3fce503654" action="dumpState">
+                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.DumpStateProperties"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="f5d40c5f-bac5-4d96-a025-317e615f8aeb" action="comment">
+                    <command>
+                        <body>Get VMs is there are any and store response</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="9d7e1516-c433-4b93-a25c-90c244b8d085" action="eval">
+                            <command>
+                                <body>puts [tbml query //tbml/body/resources/resource/propertyCollection/property\\[@name=&apos;vm_host_type&apos;\\]/../../property\\[1\\]]</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>virtMachines</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="756acb7a-999f-42d2-9918-b92187202a85" action="comment">
+                    <command>
+                        <body>Loop through VMs and start machines</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="222c3e10-25ba-44b1-8eef-ea4da7ac86f3" action="comment">
+                            <command>
+                                <body>check if there are any VMs to start</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="6072915b-5851-4dd2-9a68-0a86d167f04f" action="eval">
+                                    <command>
+                                        <body>puts [llength $virtMachines]</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="regex">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.regex.extractors.RegexExtractorPropertyGroup" useLineMode="true">
+                                                        <regex>^\\d+$</regex>
+                                                        <extractionGroupIndex>0</extractionGroupIndex>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>$value == &quot;0&quot;</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                                    <message>Found 0 virtual machines - skipping VM startup procedure...</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                        <actionsWhenFalse>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                                    <message>Found $value Virtual Machines - intiating VM startup procedure....</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenFalse>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="bde960d8-f764-496b-b0bc-4d710af34d92" action="comment">
+                            <command>
+                                <body>Open session and loop through VMs if there are any in the list</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="3cdaa7d3-9db1-422a-a1a3-cc3e99e4b6c3" action="if">
+                                    <command>
+                                        <body>[llength $virtMachines] != 0</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="bedcd95f-eb87-4f0c-923a-fc8004018085" action="then">
+                                            <nestedSteps>
+                                                <item guid="fa97e782-82d9-4b9d-8e6f-0e7c5ca10809" action="comment">
+                                                    <command>
+                                                        <body>Open VM session</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="ef7ac610-27c3-4294-8248-b174d7915dc6" action="open" session="vsphere">
+                                                    <command>
+                                                        <body>project://d_vsphere/session_profiles/d_vsphere.ffsp</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                                                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.vmware.vi.core.tool" transferableType="com.fnfr.itest.applications.vmware.vi.core.VMwareViSessionProperties" ipAddress="[param vsphere/hostname_ip]" ipAddress.inherit="false" user="root" user.inherit="false" password.masked="true" password="Ub+VdSXAJM9NnnYEQSr2hw==" password.inherit="false"/>
+                                                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </applicationProperties>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            <useFieldsInCommand>false</useFieldsInCommand>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                                <item guid="e05df983-21a2-4050-b28b-6fd6bb957029" action="foreach">
+                                    <command>
+                                        <body>virtMachine $virtMachines</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="40f5e99e-b8a0-46fb-bc13-e4037d41a55d" action="comment" async="true">
+                                            <threadName>startVms</threadName>
+                                            <command>
+                                                <body>stop virtual machines and put in seperate thread</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="7d740e53-9a49-4719-9538-41b267afbca5" action="eval">
+                                                    <command>
+                                                        <body>puts &quot;Stopping VM: $virtMachine&quot;</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="none">
+                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="message">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                        <message>Stopping VM: $virtMachine</message>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="73e71919-31ab-4591-9044-0f1d7b65c698" action="call">
+                                                    <command>
+                                                        <body>powerOffVms -virtMachine $virtMachine</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            <useFieldsInCommand>false</useFieldsInCommand>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                                <item guid="7639d6a9-f1cd-4698-8d44-a16d238b6edf" action="comment">
+                                    <command>
+                                        <body>Wait for VMs to start</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="6cc6fbc0-8095-4048-bcb8-b5fd0c43388a" action="waitthread">
+                                            <command>
+                                                <body>startVms</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.execution.kernel.WaitThreadPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="6ab3767a-f811-41f0-b0fa-a5c7da0d5ef5" action="comment">
+                            <command>
+                                <body>check for VMs to start up and update properties</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="6889fdbc-6632-4d13-8a47-f12d72cf6b13" action="foreach">
+                                    <command>
+                                        <body>virtMachine $virtMachines</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="5c94eb26-e754-459c-ae86-2323e3b78e64" action="comment" async="true">
+                                            <threadName>startVms</threadName>
+                                            <command>
+                                                <body>start virtual machines and put in seperate thread</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="129fa292-e002-4e55-9d74-f818ecd5542d" action="eval" skip="true">
+                                                    <command>
+                                                        <body>puts &quot;Checking VM for IP: $virtMachine&quot;</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="none">
+                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="message">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                        <message>Starting VM: $virtMachine</message>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="95f40a63-d992-4b5a-bdc7-8a98aef4326d" action="call" skip="true">
+                                                    <command>
+                                                        <body>checkVmStatus -virtMachine $virtMachine</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>mapped/Json/ip</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="store">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                        <storageLocation>ip</storageLocation>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="c14c2e58-5ff8-4d75-a6b7-042133cf9c8c" action="comment">
+                                                    <command>
+                                                        <body>Update device properties in velocity</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="4bf14260-ce2b-47cb-9562-41c0117c1107" action="comment">
+                                                    <command>
+                                                        <body>Capture all the VMs on the server and loop through each VM</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="b047188a-296e-4ac5-b8d9-54e0dd270fb4" action="GET" session="velocity" estimatedStepExecutionTime="1.414">
+                                                            <command>
+                                                                <body>/velocity/api/inventory/v6/devices?searchString=$virtMachine</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="query">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                <query>mapped/Json/devices/item/id</query>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="store">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                                <storageLocation>deviceId</storageLocation>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" action="/velocity/api/inventory/v6/devices?searchString=$virtMachine" action.inherit="false">
+                                                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="mbarfield" user.inherit="false" password.masked="true" password="ECfyV0EM6mvwammPrSnywg==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                                                                <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                                                                    <memberClasses>
+                                                                        <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                                                                    </memberClasses>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="X-Auth-Token" header.inherit="false" value="eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiTWlrZSBCYXJmaWVsZFwiLCBcImV4cGlyYXRpb25cIjogMTUyMDI3NTYzMywgXCJzdGFydF90aW1lXCI6IDE1MjAyNjcyMzMsIFwiZG9tYWluXCI6IFwibGRhcFwiLCBcImlkXCI6IFwibWJhcmZpZWxkXCJ9IiwgInNpZ25hdHVyZSI6ICJhMDQxZTBlN2FhMDUwMzdmMjAxZDYzMmFkNjdjODNkYjFhYzRmMzEwODlhM2Y2Yjk0NDkyNGMyODg5OThhOWU0YjNhYTYxOGRlOGU3NDE3M2I3YTg3YzRkNTA2YThjMzJlYjE5NDJhMzg4YTg4Yjc1MjdlNGRlMjg0Yjg4Y2Y0M2ZkM2Q2NDVlY2E2YWE4ZWUyM2VmYTMxM2M2NmIzNTE5MTA2OTEzZGVlMDI4YTg0Mjc5M2ZkZjY0YWRlMTU1Y2I1NzkzOWFhMDM3NzNmNDhlY2M2MzQ5ODM0Mjk2ZDY2MDIxMGY1MmM3MGJkNTEwNDQ3YzdlMzI1NWZhY2FlYjQzIn0=" value.inherit="false"/>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                                                                </httpHeader>
+                                                            </applicationProperties>
+                                                        </item>
+                                                        <item guid="3719a9a4-fc90-4f42-9f4d-d416b94465c0" action="call" skip="true">
+                                                            <command>
+                                                                <body>updateVmDeviceJsonTemplate -ip $ip</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <storeResponseAt>vmPayload</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            <useFieldsInCommand>false</useFieldsInCommand>
+                                                        </item>
+                                                        <item guid="ec1f23e6-f1be-464c-85f8-28098a0b3c7f" action="PUT" session="velocity" skip="true" estimatedStepExecutionTime="5.266">
+                                                            <command>
+                                                                <body>/velocity/api/inventory/v6/device/$deviceId</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="PUT" httpMethod.inherit="false" message="$vmPayload" message.inherit="false" action="/velocity/api/inventory/v6/device/$deviceId" action.inherit="false">
+                                                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="mbarfield" user.inherit="false" password.masked="true" password="ECfyV0EM6mvwammPrSnywg==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                                                                <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                                                                    <memberClasses>
+                                                                        <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                                                                    </memberClasses>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="X-Auth-Token" header.inherit="false"/>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                                                                </httpHeader>
+                                                            </applicationProperties>
+                                                        </item>
+                                                        <item guid="06d1f002-f0da-4140-9bfc-a0273593de7b" action="sleep">
+                                                            <command>
+                                                                <body>30</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="19a33094-afc9-4cea-bdc2-999f29267896" action="POST" session="velocity" normalOffset="309.406" estimatedStepExecutionTime="1.461">
+                                                            <command>
+                                                                <body>/velocity/api/inventory/v6/device/$deviceId/action?type=discover</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="POST" httpMethod.inherit="false" action="/velocity/api/inventory/v6/device/$deviceId/action?type=discover" action.inherit="false">
+                                                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                                                                <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                                                                    <memberClasses>
+                                                                        <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                                                                    </memberClasses>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="X-Auth-Token" header.inherit="false" value="eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiTWlrZSBCYXJmaWVsZFwiLCBcImV4cGlyYXRpb25cIjogMTUyMDI3NTYzMywgXCJzdGFydF90aW1lXCI6IDE1MjAyNjcyMzMsIFwiZG9tYWluXCI6IFwibGRhcFwiLCBcImlkXCI6IFwibWJhcmZpZWxkXCJ9IiwgInNpZ25hdHVyZSI6ICJhMDQxZTBlN2FhMDUwMzdmMjAxZDYzMmFkNjdjODNkYjFhYzRmMzEwODlhM2Y2Yjk0NDkyNGMyODg5OThhOWU0YjNhYTYxOGRlOGU3NDE3M2I3YTg3YzRkNTA2YThjMzJlYjE5NDJhMzg4YTg4Yjc1MjdlNGRlMjg0Yjg4Y2Y0M2ZkM2Q2NDVlY2E2YWE4ZWUyM2VmYTMxM2M2NmIzNTE5MTA2OTEzZGVlMDI4YTg0Mjc5M2ZkZjY0YWRlMTU1Y2I1NzkzOWFhMDM3NzNmNDhlY2M2MzQ5ODM0Mjk2ZDY2MDIxMGY1MmM3MGJkNTEwNDQ3YzdlMzI1NWZhY2FlYjQzIn0=" value.inherit="false"/>
+                                                                    <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                                                                </httpHeader>
+                                                            </applicationProperties>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            <useFieldsInCommand>false</useFieldsInCommand>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                                <item guid="3b3108f9-394f-461c-831d-c76becd0d201" action="comment">
+                                    <command>
+                                        <body>Wait for VMs to start</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="82a1b5c3-77c6-4631-ae86-c907e5fc9de1" action="waitthread">
+                                            <command>
+                                                <body>startVms</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.execution.kernel.WaitThreadPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="90dd3f47-35d4-4a56-b47d-c15a9cd4f89c" action="comment">
+                            <command>
+                                <body>Close VM session if open</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="66a1d861-cb0e-4d7c-9cf3-f30c248b1b2f" action="if">
+                                    <command>
+                                        <body>[llength $virtMachines] != 0</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="3d657118-d001-4e42-9479-ed5f8bee2c25" action="then">
+                                            <nestedSteps>
+                                                <item guid="4bdb77ef-1b89-403a-81da-3bfed621fc31" action="comment">
+                                                    <command>
+                                                        <body>Close VM session</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                                <item guid="4d143d55-e78e-4549-b506-1e4bfe17a124" action="close" session="vsphere">
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            <useFieldsInCommand>false</useFieldsInCommand>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    <useFieldsInCommand>false</useFieldsInCommand>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="3bf18fb4-52f0-4b88-b8fa-0d90bf26229c" action="comment">
+                    <command>
+                        <body>Update velocity topologies</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="17a49de2-f348-4588-9b7b-14338f84297e" action="comment">
+                            <command>
+                                <body>Open vSphere and capture VM info to populate Velocity</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="b62ebadc-2133-41c8-bfff-eb8c4d7b19e1" action="open" session="vmware" skip="true">
+                            <command>
+                                <body>application:com.fnfr.itest.applications.vmware.vi.core.tool</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                                <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.vmware.vi.core.tool" transferableType="com.fnfr.itest.applications.vmware.vi.core.VMwareViSessionProperties" ipAddress="[param vsphere/hostname_ip]" ipAddress.inherit="false" user="[param vsphere/username]" user.inherit="false" password.masked="true" password="BCJm/oZUS6xAC7sOlcoJ18Bamp09nCvxCaK+mWSFs84=" password.inherit="false"/>
+                                <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </applicationProperties>
+                        </item>
+                        <item guid="ea90ba75-80a5-4b69-855d-77eed29fe992" action="comment">
+                            <command>
+                                <body>Open REST session to publish results to Velocity</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+            </steps>
+        </item>
+        <item name="parseVmData">
+            <steps>
+                <item guid="ba3cc3dd-069d-4a44-a2cf-2d09203e9ad6" action="eval">
+                    <command>
+                        <body>set list [split $value &quot; &quot;]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b8c539d2-bcfd-4b28-85ba-2214c0010c79" action="write">
+                    <command>
+                        <body>[lindex $list 0]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="value"/>
+            </arguments>
+        </item>
+        <item name="updateVmDeviceJsonTemplate">
+            <steps>
+                <item guid="e1d3fbcd-7ebf-46f8-9bb8-904cbdb72370" action="comment">
+                    <command>
+                        <body>Use a JSON template to modify details. This will post resutlst under folder called Virtual Machines</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="26410f8a-892e-4302-ade9-ba42aeba1523" action="json">
+                    <command>
+                        <body>-action createJson -documentName modifyVmProperties -fromFile false -jsonString {&quot;consoleUrls&quot;:[{&quot;name&quot;:&quot;ssh&quot;,&quot;url&quot;:&quot;ssh://1.1.1.1&quot;}],&quot;isOnline&quot;:true,&quot;properties&quot;:[{&quot;definitionId&quot;: &quot;c8e13c0d-0143-4a6b-9df7-f56e502b6caa&quot;,&quot;value&quot;: &quot;N/A&quot;}]}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.execution.builtin.json.JsonPropertiesGroup">
+                        <action inherit="false">createJson</action>
+                        <jsonString inherit="false">{&quot;consoleUrls&quot;:[{&quot;name&quot;:&quot;ssh&quot;,&quot;url&quot;:&quot;ssh://1.1.1.1&quot;}],&quot;isOnline&quot;:true,&quot;properties&quot;:[{&quot;definitionId&quot;: &quot;c8e13c0d-0143-4a6b-9df7-f56e502b6caa&quot;,&quot;value&quot;: &quot;N/A&quot;}]}</jsonString>
+                        <documentName inherit="false">modifyVmProperties</documentName>
+                    </applicationProperties>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="4a9bad34-ddd0-420f-8bfa-0a58f0267fe2" action="json">
+                    <command>
+                        <body>-action setJsonValue -editResponseStructure false -documentName modifyVmProperties -pathValue \\{\\&quot;properties/\\[0\\]/value\\&quot;:\\&quot;$ip\\&quot;\\}</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.execution.builtin.json.JsonPropertiesGroup">
+                        <action inherit="false">setJsonValue</action>
+                        <pathValue inherit="false" sub="true">\\{\\&quot;properties/\\[0\\]/value\\&quot;:\\&quot;$ip\\&quot;\\}</pathValue>
+                        <documentName inherit="false">modifyVmProperties</documentName>
+                    </applicationProperties>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="973e6b2e-2151-463f-8302-5000d2bd154c" action="json">
+                    <command>
+                        <body>-action setJsonValue -editResponseStructure false -documentName modifyVmProperties -pathValue \\{\\&quot;consoleUrls/\\[0\\]/url\\&quot;:\\&quot;ssh://$ip\\&quot;\\}</body>
+                    </command>
+                    <postProcessing>
+                        <storeResponseAt>retVal</storeResponseAt>
+                        <storeResponseText>true</storeResponseText>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.execution.builtin.json.JsonPropertiesGroup">
+                        <action inherit="false">setJsonValue</action>
+                        <pathValue inherit="false" sub="true">\\{\\&quot;consoleUrls/\\[0\\]/url\\&quot;:\\&quot;ssh://$ip\\&quot;\\}</pathValue>
+                        <documentName inherit="false">modifyVmProperties</documentName>
+                    </applicationProperties>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="9122e018-d9fb-4055-a0d4-deef911c149c" action="write">
+                    <command>
+                        <body>$retVal</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="ip"/>
+            </arguments>
+        </item>
+        <item name="powerOnVms">
+            <steps>
+                <item guid="22ba65a6-5927-4129-bd1e-d3110f428bd2" action="powerOnVM" session="vsphere" normalOffset="46.419" estimatedStepExecutionTime="4.146">
+                    <command>
+                        <body>$virtMachine</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>result()</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == &quot;success&quot;</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>Starting $virtMachine; expected state: &quot;success&quot;, actual state: $value</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>Starting $virtMachine; expected state: &quot;success&quot;, actual state: $value</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="virtMachine">
+                    <description>Valid VM name</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="checkVmStatus" isVBlock="true">
+            <steps>
+                <item guid="b7c593a0-bbf7-477c-bdf7-a90397d87410" action="comment">
+                    <command>
+                        <body>wait up to 5 minutes</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="9a468f19-aa92-42d2-89af-8a1f57d851e1" action="getVMInfo" session="vsphere" normalOffset="61.428" estimatedStepExecutionTime="1.893">
+                    <command>
+                        <body>$virtMachine</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>(.//vmInfoTable/row/Value)[11]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == &quot;N/A&quot;</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                    <message>$virtMachine - Keep checking for valid IP &quot;$value&quot;</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="RepeatStep">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="30" maxRepeatCount.sub="true" delayBetweenRepeats="10.0" delayBetweenRepeats.sub="true"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>$virtMachine - Found IP &quot;$value&quot; for VM</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>(.//vmInfoTable/row/Value)[11]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>ip</storageLocation>
+                                        <query>ip</query>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>(.//vmInfoTable/row/Value)[12]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>dns</storageLocation>
+                                        <query>dns</query>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>(.//vmInfoTable/row/Value)[7]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>pwrState</storageLocation>
+                                        <query>pwrState</query>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="virtMachine">
+                    <description>Valid VM name</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+            <response>{&quot;ip&quot;:&quot;value&quot;,&quot;dns&quot;:&quot;value&quot;,&quot;pwrState&quot;:&quot;value&quot;}</response>
+        </item>
+        <item name="powerOffVms">
+            <steps>
+                <item guid="ed4f2f5f-27ef-4a82-b3be-2f0056f70213" action="powerOffVM" session="vsphere" normalOffset="134.274" estimatedStepExecutionTime="4.748">
+                    <command>
+                        <body>$virtMachine</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>result()</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>$value == &quot;success&quot;</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>Stopping $virtMachine; expected state: &quot;success&quot;, actual state: $value</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="PassTestIfNotAlreadyFailed">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>Stopping $virtMachine; expected state: &quot;success&quot;, actual state: $value</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="virtMachine">
+                    <description>Valid VM name</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+    </procedures>
+</testCase>

@@ -19,7 +19,7 @@
     <requirements>
         <requirement key="os.type">linux</requirement>
     </requirements>
-    <testbed>project://ai_spirent_demo_assets/topologies/velocity/logical/CiscoSystemTest.tbml</testbed>
+    <testbed>project://ai_spirent_demo_assets/topologies/velocity/logical/JuniperSystemTest.tbml</testbed>
     <procedures>
         <item name="main">
             <steps>

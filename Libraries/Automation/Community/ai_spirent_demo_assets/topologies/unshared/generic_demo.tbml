@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0">
+  <header>
+    <name>generic_demo</name>
+    <description></description>
+    <property name="author">MBarfield</property>
+    <property name="dateCreated">2018-04-09T17:23:53.263-07:00</property>
+    <property name="dateModified">2018-04-23T10:49:26.037-07:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">7.0.1.201802050428</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="73742bde-4f5b-47b3-9552-06905f1528f2" id="resource_0" type="server">
+        <boundary height="100" width="100" x="96" y="132"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/server_32.gif</property>
+        <property name="name">jira</property>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Selenium" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.itest.applications.selenium</baseApplication>
+              <sessionProperties transferableToolId="com.fnfr.itest.applications.selenium" transferableType="com.spirent.applications.selenium.properties.SeleniumSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject"/>
+              <baseProfile>project://di_jira/session_profiles/Selenium_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+          <session baseSessionProfile="" name="REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.itest.applications.webservices.restful</baseApplication>
+              <sessionProperties transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject"/>
+              <baseProfile>project://di_jira/session_profiles/REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+      <resource guid="595e48b3-e701-41fd-92ae-445e246d5a95" id="resource_1" type="server">
+        <boundary height="100" width="100" x="252" y="132"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/server_32.gif</property>
+        <property name="name">velocity</property>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.itest.applications.webservices.restful</baseApplication>
+              <sessionProperties transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject"/>
+              <baseProfile>project://di_velocity/session_profiles/REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+      <resource guid="0223d3a6-9178-4e9c-9fc8-479f7d57f172" id="resource_2" type="trafficgen">
+        <boundary height="100" width="100" x="408" y="132"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/Traffic-Generator_32.gif</property>
+        <property name="name">trafficgen1</property>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Spirent_TestCenter" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.svt.applications.spirent.testcenter.gui</baseApplication>
+              <sessionProperties config="file:/C:/temp/inti_tg/Clemson_IS.xml" config.inherit="false" ipAddress="10.108.32.17" ipAddress.inherit="false" ports="2:7 2:8" ports.inherit="false" transferableToolId="com.fnfr.svt.applications.spirent.testcenter.gui" transferableType="com.fnfr.itest.applications.spirent.testcenter.properties.TestCenterGUISessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject">
+                <configureCustom16bitFilter endOfRange="ffff" endOfRange.inherit="false" mask="ffff" mask.inherit="false" transferableToolId="com.fnfr.svt.applications.spirent.testcenter.gui" transferableType="com.fnfr.itest.applications.spirent.testcenter.properties.Analyzer16BitFilterProperties"/>
+              </sessionProperties>
+              <baseProfile>project://di_stc_com/session_profiles/stc.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+    </resources>
+    <connectivity/>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>

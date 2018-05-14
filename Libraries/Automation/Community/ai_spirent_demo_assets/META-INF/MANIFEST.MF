@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 iTest-Manifest-Version: 1.0
-iTest-Dependent-Project: "di_wireshark_com","di_stc_com","di_Juniper_J
- UNOS","ui_mail_com","di_cisco_ios_com","ui_cmd_com"
+iTest-Dependent-Project: "di_jira","di_wireshark_com","di_Juniper_JUNO
+ S","di_stc_com","ui_mail_com","di_velocity","di_cisco_ios_com","ui_cm
+ d_com","d_vsphere","d_landslide"
 
