@@ -18,6 +18,7 @@
         </item>
         <item name="getTopoLinkInfo" isPublic="true">
             <description>Get link info - useful for make/break testing</description>
+            <responseMap>project://di_velocity_com/response_maps/quickCalls/getTopoLinkInfo.ffrm</responseMap>
             <steps>
                 <item guid="f9c66566-697e-4722-8556-fabcfb24e68a" action="GET" session="$session">
                     <command>
@@ -188,6 +189,7 @@ i8b8e40e6-2d91-49a1-a6e0-84264fa69e34,2/12,STC1,FastEthernet5/0,Router2</multili
         </item>
         <item name="getTopoLinkAction" isPublic="true">
             <description>Get commands to break/restore links - requires L1</description>
+            <responseMap>project://di_velocity_com/response_maps/quickCalls/getTopoLinkAction.ffrm</responseMap>
             <steps>
                 <item guid="b3a4ce6c-5f17-4019-8d4f-9ad8c695a7f5" action="GET" session="$session">
                     <command>
