@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<testCase version="7.0.1.201802131446">
+    <general>
+        <documentation>This show the status of the system and allows admins to help manage system</documentation>
+        <notes>Provide useful details about system and report current status of environment</notes>
+        <owner>MBarfield</owner>
+    </general>
+    <testbed>project://ai_spirent_demo_assets/topologies/local/Landslide_Plano.tbml</testbed>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="d62cacf1-81c0-4319-8a69-17b714b8610d" action="comment">
+                    <command>
+                        <body>Open sessions</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="99616e6c-71e0-4399-aea7-86dd3af69c29" action="open" session="tg1">
+                    <command>
+                        <body>device:tg1#Spirent_Landslide_REST</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="45ceb918-682f-47b7-aac1-c373f7f93cb7" action="ShowAllLibraries" session="tg1" normalOffset="9.068" estimatedStepExecutionTime="0.189">
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>Result/*</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>testLibraryIds</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.itest.platform2.shared.documents.ntaf.NtafTransferableDocumentObject" action="ShowAllLibraries" subharness="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main" harness="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main" harnessName="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main"/>
+                </item>
+                <item guid="dab21216-03f0-4596-81b6-fa63d338026e" action="foreach">
+                    <command>
+                        <body>testLibraryId $testLibraryIds</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="2b6dbea4-5828-499e-af46-c1cbd4a0cf7b" action="ShowAllTestSessions" session="tg1" normalOffset="9.245" estimatedStepExecutionTime="0.114">
+                            <applicationProperties type="com.fnfr.itest.platform2.shared.documents.ntaf.NtafTransferableDocumentObject" action="ShowAllTestSessions" subharness="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main" harness="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main" harnessName="http://spirent.com/NTAF/harness/iTest/LandslideRest/Main" LibraryID="$testLibraryId" LibraryID.inherit="false"/>
+                        </item>
+                        <item guid="4821e535-50e1-46ab-a94f-9280ca4e0261" action="eval">
+                            <command>
+                                <body>puts $testLibraryId</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="800fe769-c9a2-4ad5-bf01-ffb337c0dc24" action="close" session="tg1" normalOffset="237.869">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

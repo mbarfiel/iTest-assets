@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ParameterTree version="7.0.1.201802131446">
+    <parameters escape="true">
+        <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+            <username pt:description="User running test">DavidP</username>
+            <password pt:description="User credentials">a1b2c3d4</password>
+            <MME_IP pt:description="S1-Control IP">10.211.22.3</MME_IP>
+            <ue_ip_version pt:datatype="INTEGER" pt:description="Returned IP from PGW - 1 = IPv4, 2=IPv6, 3=DualStack">1</ue_ip_version>
+            <testSessionName pt:description="Test session name for library">PoC-S1-HTTP-DL-IPv4</testSessionName>
+            <testSessionLibraryName>Verizon_NSSPoC</testSessionLibraryName>
+        </parameters>
+    </parameters>
+</ParameterTree>

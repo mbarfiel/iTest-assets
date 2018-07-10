@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<testCase version="7.1.0.201804110601">
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="d62cacf1-81c0-4319-8a69-17b714b8610d" action="comment">
+                    <command>
+                        <body>Open sessions</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="42a34e43-307f-4955-a620-0c725fa856ff" action="open" session="cmd">
+                    <command>
+                        <body>project://ui_cmd_com/referenceSessionProfile/cmd.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                        <sessionProperties type="com.fnfr.svt.applications.cmd.CmdSessionProperties"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="8aadb4d4-4260-4ac9-a562-cca3799e41b3" action="command" session="cmd" normalOffset="28.567" estimatedStepExecutionTime="0.031">
+                    <command>
+                        <body>cd C:\\\\Users\\\\MBarfield\\\\temp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <completionProperties expectedIdleTime="1.477" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="fbc6db9c-6156-4c19-9b2d-ae6e0ae0d0bd" action="command" session="cmd" normalOffset="4.538" estimatedStepExecutionTime="1.833">
+                    <command>
+                        <body>python -m robot C:\\\\Users\\\\MBarfield\\\\PycharmProjects\\\\junos\\\\venv\\\\tests\\\\HelloWorld.txt</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <completionProperties expectedIdleTime="1.015" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="88ed7c92-c8d9-45aa-9690-be3349a067ae" action="close" session="cmd" normalOffset="13.08">
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

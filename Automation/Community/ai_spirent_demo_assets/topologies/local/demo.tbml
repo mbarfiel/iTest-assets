@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0">
+  <header>
+    <name>demo</name>
+    <description></description>
+    <property name="author">MBarfield</property>
+    <property name="dateCreated">2018-05-15T12:34:38.124-07:00</property>
+    <property name="dateModified">2018-05-15T15:41:43.103-07:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">7.0.1.201802050428</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="f8cc4bbf-c391-41f9-85bd-a6094e6a51f5" id="resource_0" type="server">
+        <boundary height="100" width="100" x="239" y="252"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/server_32.gif</property>
+        <property name="name">velocity</property>
+        <property name="inventoryName"></property>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.itest.applications.webservices.restful</baseApplication>
+              <sessionProperties transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject"/>
+              <baseProfile>project://di_velocity/session_profiles/REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+    </resources>
+    <connectivity/>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>

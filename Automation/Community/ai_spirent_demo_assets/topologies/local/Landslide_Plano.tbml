@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0">
+  <header>
+    <name>landslide</name>
+    <description></description>
+    <property name="author">MBarfield</property>
+    <property name="dateCreated">2018-05-31T12:30:19.459-07:00</property>
+    <property name="dateModified">2018-06-11T12:32:08.724-07:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">7.0.1.201802050428</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="15c7abfc-95d2-4cda-a94f-3f0e158654f7" id="resource_0" type="trafficgen">
+        <boundary height="100" width="100" x="204" y="180"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/Traffic-Generator_32.gif</property>
+        <property name="name">tg1</property>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Spirent_Landslide_REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.spirent.itest.applications.landsliderest</baseApplication>
+              <sessionProperties landslideRESTAPI="http://10.71.40.10:8080/api" landslideRESTAPI.inherit="false" transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject">
+                <authentication transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestAuthenticationProperties" user="Matt" user.inherit="false"/>
+              </sessionProperties>
+              <baseProfile>project://d_landslide/session_profiles/Spirent_Landslide_REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+      </resource>
+    </resources>
+    <connectivity/>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>

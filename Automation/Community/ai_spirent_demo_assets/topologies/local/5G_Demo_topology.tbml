@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0">
+  <header>
+    <name>landslide</name>
+    <description></description>
+    <property name="author">MBarfield</property>
+    <property name="dateCreated">2018-05-31T12:30:19.459-07:00</property>
+    <property name="dateModified">2018-06-25T20:55:56.414-07:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">7.0.1.201802050428</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="15c7abfc-95d2-4cda-a94f-3f0e158654f7" id="resource_0" type="trafficgen">
+        <boundary height="100" width="100" x="36" y="252"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/Traffic-Generator_32.gif</property>
+        <property name="name">tg1</property>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="Spirent_Landslide_REST" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.spirent.itest.applications.landsliderest</baseApplication>
+              <sessionProperties landslideRESTAPI="http://10.71.40.10:8080/api" landslideRESTAPI.inherit="false" transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject">
+                <authentication transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestAuthenticationProperties" user="Matt" user.inherit="false"/>
+              </sessionProperties>
+              <baseProfile>project://d_landslide/session_profiles/Spirent_Landslide_REST_ref_session_profile.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+        <resource guid="75f52edc-0577-4d07-99aa-17f24f61c7b8" id="resource_0_0" type="port">
+          <property name="name">port1</property>
+          <property name="inventoryName"></property>
+        </resource>
+      </resource>
+      <resource guid="1aa038b3-ef96-4f7d-a716-a50b7ed2e214" id="resource_1" type="station">
+        <boundary height="100" width="100" x="204" y="252"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/BaseStation_32.gif</property>
+        <property name="name">eNB</property>
+        <property name="inventoryName"></property>
+        <property name="isSessionRequired" vendor="com.fnfr">false</property>
+        <resource guid="6e9c2582-c93b-47d5-a08f-70fdfa31cfe4" id="resource_1_0" type="port">
+          <property name="name">port1</property>
+          <property name="inventoryName"></property>
+        </resource>
+        <resource guid="33ba2f80-a2bb-46b3-a8e0-774241f23165" id="resource_1_1" type="port">
+          <property name="name">port2</property>
+          <property name="inventoryName"></property>
+        </resource>
+      </resource>
+      <resource guid="f25f3ee7-658d-4ccb-9c74-727a45fd1ada" id="resource_2" type="gateway">
+        <boundary height="100" width="100" x="348" y="252"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/Gateway_32.gif</property>
+        <property name="name">SAE Gateway</property>
+        <property name="inventoryName"></property>
+        <property name="isSessionRequired" vendor="com.fnfr">false</property>
+        <resource guid="64bf0185-0f8e-4f50-80f5-cbe62fb47764" id="resource_2_0" type="port">
+          <property name="name">port1</property>
+          <property name="inventoryName"></property>
+        </resource>
+        <resource guid="f64c4bea-f7a2-4b69-9c8b-c560ef67e823" id="resource_2_1" type="port">
+          <property name="name">port2</property>
+          <property name="inventoryName"></property>
+        </resource>
+      </resource>
+      <resource guid="5e921535-6f68-4c92-a367-7b8dae2ea726" id="resource_3" type="router">
+        <boundary height="100" width="100" x="480" y="252"/>
+        <property name="iconURI">platform:/plugin/com.fnfr.itest.topology.tbml.edit/icons/full/topology/router_32.gif</property>
+        <property name="name">router1</property>
+        <property name="inventoryName"></property>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="telnet" provider="com.fnfr">
+            <sessionProfile version="7.0.1.201802131446">
+              <baseApplication>com.fnfr.svt.applications.telnet</baseApplication>
+              <sessionProperties type="com.fnfr.svt.applications.telnet.documents.TelnetSessionProperties"/>
+              <baseProfile>project://di_cisco_ios_com/session_profiles/telnet/cisco_telnet.ffsp</baseProfile>
+              <standalone>false</standalone>
+            </sessionProfile>
+          </session>
+        </extensions>
+        <resource guid="744e36a8-327a-4728-a5f0-b8b2236bc767" id="resource_3_0" type="port">
+          <property name="name">port1</property>
+          <property name="inventoryName"></property>
+        </resource>
+      </resource>
+    </resources>
+    <connectivity>
+      <link id="link_0">
+        <property name="name">link1</property>
+        <endpoint id="resource_1_0"/>
+        <endpoint id="resource_0_0"/>
+      </link>
+      <link id="link_1">
+        <property name="name">link2</property>
+        <endpoint id="resource_2_0"/>
+        <endpoint id="resource_1_1"/>
+      </link>
+      <link id="link_2">
+        <property name="name">link3</property>
+        <endpoint id="resource_3_0"/>
+        <endpoint id="resource_2_1"/>
+      </link>
+    </connectivity>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>
