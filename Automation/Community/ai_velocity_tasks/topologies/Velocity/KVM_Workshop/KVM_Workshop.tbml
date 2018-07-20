@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema">
+  <header>
+    <name>KVM_Workshop</name>
+    <description>Add cool stuff here...</description>
+    <property name="rmGuid">ca48f6ce-102c-49dc-9e31-1375054de36d</property>
+    <property name="dateModified">2018-07-19T14:28:30.569-07:00</property>
+    <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+    <property name="creationToolVersion" vendor="com.fnfr">7.1.0.201804230510</property>
+  </header>
+  <body>
+    <resources>
+      <resource guid="ic711484d-92b8-40ce-928f-7d999fcb3f95" id="ic711484d-92b8-40ce-928f-7d999fcb3f95" shared="true" type="device">
+        <boundary height="147" width="215" x="456" y="190"/>
+        <property isimportant="false" name="name">KVM_Workshop</property>
+        <property isimportant="false" name="description"/>
+        <property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=ic711484d-92b8-40ce-928f-7d999fcb3f95</property>
+        <property isimportant="false" name="ilo_shape">RECTANGLE</property>
+        <property isimportant="false" name="ilo_iconId">93c71caa-4385-41ac-afaf-dee969074c5d</property>
+        <propertyCollection name="Management">
+<property id="07c4711f-4265-414c-aeee-13dc0667be68" valuelabel="" name="ipAddress" type="text">10.140.64.138</property>
+<property id="1fb5316c-dd86-8f43-0837-367c8b91a987" valuelabel="" name="Hostname" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Environment">
+<property id="db8b54b4-0cf4-4720-9c52-427f4d5e14f1" valuelabel="" name="vmImageName" type="text">KVM-Workshop1</property>
+<property id="1901e61a-1584-4a83-9c38-346df2967f1e" valuelabel="" name="baselineSnapshot" type="text">KVM-Workshop1-Snapshot</property>
+<property id="c43cd4ad-648d-4668-aa8c-dc7bfdb5f75b" valuelabel="" name="snapshotId" type="integer">1</property>
+<property id="cf1ca9e1-44bb-492d-bd6d-10227b9c3282" valuelabel="" name="esxiHostIp" type="text">10.140.64.32</property>
+<property id="10a3e44a-10f1-4256-9e5b-d5825bd72d1a" valuelabel="" name="vCenterIp" type="text">10.140.64.20</property>
+</propertyCollection>
+        <property name="inventoryName"/>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="VMware_vSphere_Client" provider="com.fnfr">
+            <sessionProfile version="7.1.0.201804110601">
+              <baseApplication>com.fnfr.itest.applications.vmware.vi.core.tool</baseApplication>
+              <sessionProperties ipAddress="10.140.64.20" ipAddress.inherit="false" password="AiRWju4XCF4EP8oSiJdNBA==" password.inherit="false" password.masked="true" transferableToolId="com.fnfr.itest.applications.vmware.vi.core.tool" transferableType="com.fnfr.itest.applications.vmware.vi.core.VMwareViSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" user="administrator@vsphere.local" user.inherit="false"/>
+              <baseProfile>project://d_vsphere/session_profiles/d_vsphere.ffsp</baseProfile>
+              <standalone>false</standalone>
+              <language>Python</language>
+            </sessionProfile>
+          </session>
+        </extensions>
+        <extensions type="com.fnfr.rm.condition" XMLSchema:namespace="com.fnfr.rm.condition">template[ESXi_KVM]</extensions>
+      </resource>
+    </resources>
+    <connectivity/>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>
