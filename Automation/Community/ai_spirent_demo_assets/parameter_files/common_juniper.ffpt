@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ParameterTree version="6.1.0.e2e4ec0">
+<ParameterTree version="7.1.0.201804110601">
     <parameters escape="true">
         <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
             <trafficDurationSec pt:datatype="INTEGER" pt:description="Traffic duration in seconds">15</trafficDurationSec>
@@ -9,6 +9,8 @@
             <fwVersion>10.2R3.10</fwVersion>
             <devices pt:description="This can be a list of devices - e.g. Router1 Router2">Router</devices>
             <loadPortBasedPercent pt:description="This is the percentage of the load based on the port rate">10</loadPortBasedPercent>
+            <linkBreakIterations pt:datatype="INTEGER" pt:description="Number of times to break and restore links">1</linkBreakIterations>
+            <rowIndex pt:datatype="INTEGER" pt:description="Row that has the linkID to be broken">2</rowIndex>
         </parameters>
     </parameters>
 </ParameterTree>
