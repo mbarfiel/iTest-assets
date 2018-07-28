@@ -2,8 +2,9 @@
 <tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema">
   <header>
     <name>KVM_Workshop</name>
-    <description>Add cool stuff here...</description>
-    <property name="rmGuid">ca48f6ce-102c-49dc-9e31-1375054de36d</property>
+    <description>Link to documents: 
+https://goo.gl/cXLyQT</description>
+    <property name="rmGuid">3b0f12d0-13cd-410d-b154-b92937d8aff5</property>
     <property name="dateModified">2018-07-19T14:28:30.569-07:00</property>
     <property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
     <property name="creationToolVersion" vendor="com.fnfr">7.1.0.201804230510</property>
@@ -11,7 +12,7 @@
   <body>
     <resources>
       <resource guid="ic711484d-92b8-40ce-928f-7d999fcb3f95" id="ic711484d-92b8-40ce-928f-7d999fcb3f95" shared="true" type="device">
-        <boundary height="147" width="215" x="456" y="190"/>
+        <boundary height="147" width="215" x="134" y="-58.833333333333314"/>
         <property isimportant="false" name="name">KVM_Workshop</property>
         <property isimportant="false" name="description"/>
         <property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=ic711484d-92b8-40ce-928f-7d999fcb3f95</property>
@@ -46,6 +47,13 @@
     <connectivity/>
   </body>
   <illustration>
-    <layer/>
+    <layer>
+      <note height="142" width="458.9999999999998" x="-169.99999999999977" y="137.16666666666669" color="YELLOW" groupId="null" id="i3685a9e2-18ea-48fb-899e-01d7801a3444">
+        <content>KVM Workshop - Only use IPs assigned to your workshop. 
+
+&lt;-- See topology description for workshop details.</content>
+        <subject>Note</subject>
+      </note>
+    </layer>
   </illustration>
 </tbml>
