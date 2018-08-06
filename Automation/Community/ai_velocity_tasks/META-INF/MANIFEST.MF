@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 iTest-Manifest-Version: 1.0
-iTest-Dependent-Project: "d_vsphere"
+iTest-Dependent-Project: "di_velocity_com","ui_mail_com","d_vsphere"
 
