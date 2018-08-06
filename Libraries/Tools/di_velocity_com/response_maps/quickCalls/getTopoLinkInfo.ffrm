@@ -16,7 +16,7 @@ i8b8e40e6-2d91-49a1-a6e0-84264fa69e34,2/12,STC1,FastEthernet5/0,Router2
             <structuredData>
 &lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
     &lt;isEmpty&gt;false&lt;/isEmpty&gt;
-    &lt;definedIn&gt;project://di_velocity/session_profiles/REST_ref_session_profile_quickcall_library.fftc&lt;/definedIn&gt;
+    &lt;definedIn&gt;project://di_velocity_com/session_profiles/REST_ref_session_profile_quickcall_library.fftc&lt;/definedIn&gt;
 &lt;/structure&gt;
 </structuredData>
             <aliases>

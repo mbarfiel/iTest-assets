@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-<SessionTemplate version="7.0.1.201802131446">
+<SessionTemplate version="7.1.0.201804110601">
     <baseApplication>com.fnfr.itest.applications.webservices.restful</baseApplication>
     <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="https://10.108.36.207/velocity/api" url.inherit="false">
-        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="mbarfield" user.inherit="false" password.masked="true" password="ECfyV0EM6mvwammPrSnywg==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
         <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
             <memberClasses>
                 <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
             </memberClasses>
             <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
-            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="X-Auth-Token" header.inherit="false" value="[velocity token]" value.inherit="false"/>
         </httpHeader>
         <httpHeaderTemplate inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
             <memberClasses>
@@ -19,7 +18,7 @@
             <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="X-Auth-Token" header.inherit="false"/>
         </httpHeaderTemplate>
     </sessionProperties>
-    <parameters version="7.0.1.201802131446">
+    <parameters version="7.1.0.201804110601">
         <parameters escape="true">
             <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                 <username pt:description="Valid username">mbarfield</username>
@@ -27,10 +26,11 @@
             </parameters>
         </parameters>
     </parameters>
-    <responseLibrary inherit="false">project://di_velocity/</responseLibrary>
+    <responseLibrary inherit="false">project://di_velocity_com</responseLibrary>
     <sessionClassTestCase inherit="false">project://di_velocity_com/session_profiles/REST_ref_session_profile_quickcall_library.fftc</sessionClassTestCase>
     <nickName>velocity_api</nickName>
     <Overview>Velocity RESTful session</Overview>
     <Description>This session can be used with iTest or as a standalone session but you will need to get the token id or use basic authentication</Description>
     <isReferenceProfile>true</isReferenceProfile>
+    <language>Python</language>
 </SessionTemplate>

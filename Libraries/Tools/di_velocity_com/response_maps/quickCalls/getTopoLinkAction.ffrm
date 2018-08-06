@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ResponseMap version="7.0.1.201802131446">
+<ResponseMap version="7.1.0.201804110601">
     <sampleDictionary>
         <item name="sample1">
             <action actionType="getTopoLinkAction">
@@ -17,7 +17,7 @@ Restore,HTTP_POST,https://10.108.36.207/velocity/api/reservation/v2/reservation/
             <structuredData>
 &lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
     &lt;isEmpty&gt;false&lt;/isEmpty&gt;
-    &lt;definedIn&gt;project://di_velocity/session_profiles/REST_ref_session_profile_quickcall_library.fftc&lt;/definedIn&gt;
+    &lt;definedIn&gt;project://di_velocity_com/session_profiles/REST_ref_session_profile_quickcall_library.fftc&lt;/definedIn&gt;
 &lt;/structure&gt;
 </structuredData>
             <aliases>
