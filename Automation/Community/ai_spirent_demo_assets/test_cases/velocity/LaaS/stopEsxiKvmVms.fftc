@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<testCase version="7.1.0.201804110601">
+    <general>
+        <owner>MBarfield</owner>
+        <language>Python</language>
+    </general>
+    <execution>
+        <parameters version="7.1.0.201804110601">
+            <parameters escape="true">
+                <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+                    <vcenterCmdLineIp pt:description="Server IP to run esxi cmd line">10.140.70.193</vcenterCmdLineIp>
+                    <vcenterCmdLineUser pt:description="Username used for login">MBarfield</vcenterCmdLineUser>
+                    <vcenterCmdLinePassword pt:description="Password">Z2Got7uB3Oqcpq6h28bIbQ==</vcenterCmdLinePassword>
+                    <vcenterHostIp pt:description="IP adderess for vcenter">10.140.64.20</vcenterHostIp>
+                    <vcenterUser pt:description="User login name">administrator@vsphere.local</vcenterUser>
+                    <vcenterPassword pt:description="Vcenter password" pt:mask="true">AiRWju4XCF4EP8oSiJdNBA==</vcenterPassword>
+                </parameters>
+            </parameters>
+        </parameters>
+    </execution>
+    <testbed>project://ai_velocity_tasks/topologies/Velocity/KVM_Workshop/KVM_Workshop.tbml</testbed>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="a3f5bee5-267d-48b7-9bdd-e824873460b7" action="comment">
+                    <command>
+                        <body>variables</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="41e47cb1-6203-402d-b00a-11405e134b3b" action="eval">
+                    <command>
+                        <body>baselineSnapshot = velocity(&apos;property&apos;, &apos;-name&apos;, &apos;KVM_Workshop&apos;, &apos;baselineSnapshot&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="49ded818-562f-4fa6-b408-0dabeeba0472" action="eval">
+                    <command>
+                        <body>vmImageName = velocity(&apos;property&apos;, &apos;-name&apos;, &apos;KVM_Workshop&apos;, &apos;vmImageName&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="e8bc7053-dfab-46c6-bf3e-73a000a1087a" action="eval">
+                    <command>
+                        <body>snapshotId = velocity(&apos;property&apos;, &apos;-name&apos;, &apos;KVM_Workshop&apos;, &apos;snapshotId&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="d62cacf1-81c0-4319-8a69-17b714b8610d" action="comment">
+                    <command>
+                        <body>Open sessions</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="373cd479-5fdf-493a-be33-14de0b670e4d" action="open" session="KVM_Workshop">
+                    <command>
+                        <body>project://d_vsphere/session_profiles/d_vsphere.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.vmware.vi.core.tool" transferableType="com.fnfr.itest.applications.vmware.vi.core.VMwareViSessionProperties" ipAddress="[param(&apos;vcenterHostIp&apos;)]" ipAddress.inherit="false" user="[param(&apos;vcenterUser&apos;)]" user.inherit="false" password.masked="true" password="4RvNHVItEysfgleel3eCnq4+V35AW7A4sVxWZBvE1y0=" password.inherit="false"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="2d567b57-5918-4fb0-adc3-3298e7893125" action="getVMInfo" session="KVM_Workshop" normalOffset="93.012" estimatedStepExecutionTime="0.173">
+                    <command>
+                        <body>[vmImageName]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>(.//vmInfoTable/row/Value)[7]</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>vmPwrState</storageLocation>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="a20d00b0-5463-4835-a41f-2f4d58e62aa8" action="if">
+                    <command>
+                        <body>vmPwrState != &apos;Powered Off&apos;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="59b6187b-5eff-4265-9cf7-626d7d73ba20" action="comment">
+                            <command>
+                                <body>Power off VM and reset to baseline</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="d21345a4-4d31-482e-9f24-91c64076bcb6" action="powerOffVM" session="KVM_Workshop" normalOffset="41.15" estimatedStepExecutionTime="2.101">
+                            <command>
+                                <body>[vmImageName]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="7f8931c5-d4c7-429d-aafa-5d60efe1af68" action="getVMInfo" session="KVM_Workshop" normalOffset="11.37" estimatedStepExecutionTime="0.159">
+                            <command>
+                                <body>[vmImageName]</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>(.//vmInfoTable/row/Value)[7]</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == &quot;Powered Off&quot;</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                            <message>Verify that VM is Powered Off</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="PassTestIfNotAlreadyFailed">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                            <message>Verify that VM is powered off</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="RepeatStep">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" delayBetweenRepeats="5.0"/>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="7a55b8ca-0881-4a04-a9bd-c1540f15f2ec" action="close" session="KVM_Workshop" normalOffset="70.882">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>
