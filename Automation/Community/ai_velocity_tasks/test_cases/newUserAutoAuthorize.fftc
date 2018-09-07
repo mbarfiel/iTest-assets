@@ -30,7 +30,7 @@
                 </item>
                 <item guid="fd6dd465-2253-4e11-b381-57a9389ca970" action="comment">
                     <command>
-                        <body>debug info</body>
+                        <body>set variables</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                     <useFieldsInCommand>false</useFieldsInCommand>
@@ -38,6 +38,20 @@
                 <item guid="83579c4c-02f8-4741-bf94-33532b1a53ea" action="eval">
                     <command>
                         <body>token = velocity(&apos;token&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="095da7f0-cc18-4e9e-87fe-3ae586486d88" action="eval">
+                    <command>
+                        <body>url = velocity(&apos;url&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b7d9fe14-6ded-4f46-aa86-274e3af5ffb7" action="eval">
+                    <command>
+                        <body>print(url)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                     <useFieldsInCommand>false</useFieldsInCommand>
@@ -77,7 +91,7 @@
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
                                 <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="https://10.140.64.12/velocity/api" url.inherit="false">
+                                <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="[url]/api" url.inherit="false">
                                     <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType.inherit="false" user.inherit="false" password.masked="true" password="CaK+mWSFs84=" password.inherit="false"/>
                                     <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
                                         <memberClasses>
@@ -90,6 +104,19 @@
                                 <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             </applicationProperties>
+                            <emulation emulate="ALWAYS">
+                                <behavior>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;/&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.7</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                         <item guid="1bb792cd-95cf-4416-b2c9-ba7878547e69" action="call">
                             <command>
@@ -116,6 +143,23 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             <useFieldsInCommand>false</useFieldsInCommand>
+                            <emulation>
+                                <behavior>
+                                    <response>les.daniels@spirent.com;mike.barfield@spirent.com</response>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;false&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>2.8</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                         <item guid="190d7a40-1d0e-44dc-963c-3fdc2721ec34" action="GET" session="velocity" estimatedStepExecutionTime="1.14">
                             <command>
@@ -162,10 +206,59 @@
                             <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" action="/velocity/api/user/v8/profiles?role=USER&amp;limit=1&amp;sortBy=created&amp;sortOrder=desc" action.inherit="false">
                                 <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
                             </applicationProperties>
+                            <emulation>
+                                <behavior>
+                                    <response>{&quot;total&quot;:11,&quot;offset&quot;:0,&quot;count&quot;:1,&quot;profiles&quot;:[{&quot;id&quot;:&quot;0593637f-194a-482d-ae6c-309925d7e62c&quot;,&quot;name&quot;:&quot;Parenteau, Fred&quot;,&quot;description&quot;:&quot;&quot;,&quot;autosetTimeZone&quot;:true,&quot;timeZoneId&quot;:null,&quot;role&quot;:&quot;USER&quot;,&quot;email&quot;:null,&quot;receivesEmailNotifications&quot;:false,&quot;created&quot;:1536253087110,&quot;lastModifierId&quot;:null,&quot;lastModified&quot;:1536253087110,&quot;prefersExternalApplicationToHandleConsoleUrls&quot;:false,&quot;receivesDailyReports&quot;:false,&quot;receivesOwnReservationInvitations&quot;:false,&quot;autoApproveFrom&quot;:[],&quot;groups&quot;:[],&quot;login&quot;:&quot;fparenteau&quot;,&quot;homePage&quot;:null,&quot;features&quot;:[],&quot;defaultReportTemplateId&quot;:null,&quot;administeredDeviceGroups&quot;:[],&quot;timeZoneOffset&quot;:-25200000,&quot;isDisabled&quot;:false,&quot;userStatus&quot;:&quot;IDLE&quot;}]}</response>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;statusCode value=&quot;200&quot;/&gt;
+    &lt;requestHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Auth_Token map:nodetype=&quot;token&quot;&gt;eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiQmFyZmllbGQsIE1pa2VcIiwgXCJzdGFydF90aW1lXCI6IDE1MzYzNTExNzAsIFwiaWRcIjogXCJtYmFyZmllbGRcIiwgXCJleHBpcmF0aW9uXCI6IDE1MzY0Mzg3NzAsIFwiZG9tYWluXCI6IFwibGRhcFwifSIsICJzaWduYXR1cmUiOiAiNjQyNWYyNWZhZjYzYTZiMzIzZGVmMmRjMDA2Y2ZhY2RiMjJjZTcxMjJjOTZjYTcwYWQ0YjE1ZWQ3YTMzMDYwMzgyYWM2MTBhYjBhNzYxMDRhY2FkMmQ4MjFlYjMxYzczNWI2OTE2MGYyY2ZkZGFlODdiMzkxNTI3MmE2MzcxZmY2NzIzMzdiMjI5NWZiN2JlYjcyNjVjMjM5ZDUxNzU3MzljODE5NmNlMDk0M2Y0N2IzZjEwYzEyMzNhYTI4NDM2OTMyOTE4ZGExZTk1M2MwMDQ4MDFhNGRlYmNmYWQxYzY5NjI3NmQ4MjhiZGY3NzAwMmE1YWI4OTNkMDgxOTMxMDY2MTFhZmQwNjM5YTdkZmE3MjI2ZGJjN2VjYWE4NWMwNTM1OWI4MWYwOGI0MjdkOThlYjIwYTViMTI5ZDViYTg3NWUyMmVhMTY5YjA4M2U0ZmU1ODc2OTQyM2RhZDdhZDQxOTM1NDQwZjM0NDk1MTk4YzVlMjA1YzZiYjk5OTcyNzcyMmJjZjcyYjVkMDg5OWNlYjE4NzEzMDliNjBlNTlhNGU4N2RmOGIyZTRmMmY0NjRjYzc5ZWU3MDg4MDRlYTQ2NmM1MmNiNjVkMTRhYzZlOGZhM2FkMjUwMDczYWYwODZhODM4ZDI3M2M4NmU1OTM3NTFmZjk1ZDgxOTNkNjEifQ==&lt;/X_Auth_Token&gt;
+    &lt;/requestHTTPHeaders&gt;
+    &lt;requestRawText map:nodetype=&quot;token&quot;/&gt;
+    &lt;responseHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Server map:nodetype=&quot;token&quot;&gt;nginx/1.10.3 (Ubuntu)&lt;/Server&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache, no-store, must-revalidate&lt;/Cache_Control&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Cache_Control&gt;
+        &lt;Connection map:nodetype=&quot;token&quot;&gt;keep-alive&lt;/Connection&gt;
+        &lt;Expires map:nodetype=&quot;token&quot;&gt;0&lt;/Expires&gt;
+        &lt;Pragma map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Pragma&gt;
+        &lt;Content_Length map:nodetype=&quot;token&quot;&gt;648&lt;/Content_Length&gt;
+        &lt;Date map:nodetype=&quot;token&quot;&gt;Fri, 07 Sep 2018 20:33:44 GMT&lt;/Date&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Powered_By map:nodetype=&quot;token&quot;&gt;Undertow/1&lt;/X_Powered_By&gt;
+    &lt;/responseHTTPHeaders&gt;
+    &lt;responseRawText map:nodetype=&quot;token&quot;&gt;{&amp;quot;total&amp;quot;:11,&amp;quot;offset&amp;quot;:0,&amp;quot;count&amp;quot;:1,&amp;quot;profiles&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;0593637f-194a-482d-ae6c-309925d7e62c&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Parenteau, Fred&amp;quot;,&amp;quot;description&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;autosetTimeZone&amp;quot;:true,&amp;quot;timeZoneId&amp;quot;:null,&amp;quot;role&amp;quot;:&amp;quot;USER&amp;quot;,&amp;quot;email&amp;quot;:null,&amp;quot;receivesEmailNotifications&amp;quot;:false,&amp;quot;created&amp;quot;:1536253087110,&amp;quot;lastModifierId&amp;quot;:null,&amp;quot;lastModified&amp;quot;:1536253087110,&amp;quot;prefersExternalApplicationToHandleConsoleUrls&amp;quot;:false,&amp;quot;receivesDailyReports&amp;quot;:false,&amp;quot;receivesOwnReservationInvitations&amp;quot;:false,&amp;quot;autoApproveFrom&amp;quot;:[],&amp;quot;groups&amp;quot;:[],&amp;quot;login&amp;quot;:&amp;quot;fparenteau&amp;quot;,&amp;quot;homePage&amp;quot;:null,&amp;quot;features&amp;quot;:[],&amp;quot;defaultReportTemplateId&amp;quot;:null,&amp;quot;administeredDeviceGroups&amp;quot;:[],&amp;quot;timeZoneOffset&amp;quot;:-25200000,&amp;quot;isDisabled&amp;quot;:false,&amp;quot;userStatus&amp;quot;:&amp;quot;IDLE&amp;quot;}]}&lt;/responseRawText&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.6</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                         <item guid="f345afce-ae1a-47fd-b9ee-61f26afa9796" action="comment">
                             <command>
-                                <body>KVM-Workshop is hardcoded - variable sub is causing issues with xpath and python syntax</body>
+                                <body>Get user group from paramters</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="0012091c-dd75-4ff4-a5b7-f4b22f7e9673" action="eval">
+                            <command>
+                                <body>userGroup = param(&apos;groupName&apos;)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
+                        </item>
+                        <item guid="d0ea2371-bc90-4c6a-b683-727a08e615f4" action="comment">
+                            <command>
+                                <body>default workshop name is hardcoded and needs fixed later</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             <useFieldsInCommand>false</useFieldsInCommand>
@@ -179,7 +272,7 @@
                                     <item>
                                         <extractorInfo extractorType="query">
                                             <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                <query>mapped/Json/userGroups/item[name =&apos;KVM-Workshop&apos;]/id</query>
+                                                <query>mapped/Json/userGroups/item[name = &apos;KVM-Workshop&apos;]/id</query>
                                             </extractorProperties>
                                         </extractorInfo>
                                         <processorInfo ruleType="store">
@@ -187,6 +280,19 @@
                                                 <storageLocation>userGroupId</storageLocation>
                                             </ruleProperties>
                                         </processorInfo>
+                                    </item>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query sub="true">mapped/Json/userGroups/item\\[name =&apos;[userGroup]&apos;]/id</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>userGroupId</storageLocation>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                        <skip>true</skip>
                                     </item>
                                     <item>
                                         <extractorInfo extractorType="none">
@@ -199,10 +305,53 @@
                                         </processorInfo>
                                     </item>
                                 </analysisRules>
+                                <storeResponseAt>groups</storeResponseAt>
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" action="/velocity/api/user/v8/groups" action.inherit="false">
                                 <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
                             </applicationProperties>
+                            <emulation>
+                                <behavior>
+                                    <response>{&quot;userGroups&quot;:[{&quot;id&quot;:null,&quot;name&quot;:&quot;Ungrouped&quot;,&quot;userCount&quot;:2,&quot;weeklyQuota&quot;:null,&quot;monthlyQuota&quot;:null,&quot;quarterlyQuota&quot;:null,&quot;yearlyQuota&quot;:null,&quot;isCheckinRequired&quot;:false,&quot;approvers&quot;:[],&quot;technicianManagerId&quot;:null,&quot;isEscalationManagers&quot;:false,&quot;hasTopologiesMaintenanceAccess&quot;:true,&quot;creatorId&quot;:null,&quot;created&quot;:null,&quot;requestFormId&quot;:null},{&quot;id&quot;:&quot;d015d3c7-374d-407c-b628-aeaef84b17b5&quot;,&quot;name&quot;:&quot;KVM-Workshop&quot;,&quot;userCount&quot;:9,&quot;weeklyQuota&quot;:120,&quot;monthlyQuota&quot;:240,&quot;quarterlyQuota&quot;:null,&quot;yearlyQuota&quot;:null,&quot;isCheckinRequired&quot;:false,&quot;approvers&quot;:[],&quot;technicianManagerId&quot;:null,&quot;isEscalationManagers&quot;:false,&quot;hasTopologiesMaintenanceAccess&quot;:false,&quot;creatorId&quot;:&quot;43aabccc-ef9d-425c-a774-dbc050bc6ca4&quot;,&quot;created&quot;:1532359913225,&quot;requestFormId&quot;:null}],&quot;total&quot;:2,&quot;offset&quot;:0,&quot;count&quot;:2}</response>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;statusCode value=&quot;200&quot;/&gt;
+    &lt;requestHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Auth_Token map:nodetype=&quot;token&quot;&gt;eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiQmFyZmllbGQsIE1pa2VcIiwgXCJzdGFydF90aW1lXCI6IDE1MzYzNTExNzAsIFwiaWRcIjogXCJtYmFyZmllbGRcIiwgXCJleHBpcmF0aW9uXCI6IDE1MzY0Mzg3NzAsIFwiZG9tYWluXCI6IFwibGRhcFwifSIsICJzaWduYXR1cmUiOiAiNjQyNWYyNWZhZjYzYTZiMzIzZGVmMmRjMDA2Y2ZhY2RiMjJjZTcxMjJjOTZjYTcwYWQ0YjE1ZWQ3YTMzMDYwMzgyYWM2MTBhYjBhNzYxMDRhY2FkMmQ4MjFlYjMxYzczNWI2OTE2MGYyY2ZkZGFlODdiMzkxNTI3MmE2MzcxZmY2NzIzMzdiMjI5NWZiN2JlYjcyNjVjMjM5ZDUxNzU3MzljODE5NmNlMDk0M2Y0N2IzZjEwYzEyMzNhYTI4NDM2OTMyOTE4ZGExZTk1M2MwMDQ4MDFhNGRlYmNmYWQxYzY5NjI3NmQ4MjhiZGY3NzAwMmE1YWI4OTNkMDgxOTMxMDY2MTFhZmQwNjM5YTdkZmE3MjI2ZGJjN2VjYWE4NWMwNTM1OWI4MWYwOGI0MjdkOThlYjIwYTViMTI5ZDViYTg3NWUyMmVhMTY5YjA4M2U0ZmU1ODc2OTQyM2RhZDdhZDQxOTM1NDQwZjM0NDk1MTk4YzVlMjA1YzZiYjk5OTcyNzcyMmJjZjcyYjVkMDg5OWNlYjE4NzEzMDliNjBlNTlhNGU4N2RmOGIyZTRmMmY0NjRjYzc5ZWU3MDg4MDRlYTQ2NmM1MmNiNjVkMTRhYzZlOGZhM2FkMjUwMDczYWYwODZhODM4ZDI3M2M4NmU1OTM3NTFmZjk1ZDgxOTNkNjEifQ==&lt;/X_Auth_Token&gt;
+    &lt;/requestHTTPHeaders&gt;
+    &lt;requestRawText map:nodetype=&quot;token&quot;/&gt;
+    &lt;responseHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Server map:nodetype=&quot;token&quot;&gt;nginx/1.10.3 (Ubuntu)&lt;/Server&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache, no-store, must-revalidate&lt;/Cache_Control&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Cache_Control&gt;
+        &lt;Connection map:nodetype=&quot;token&quot;&gt;keep-alive&lt;/Connection&gt;
+        &lt;Expires map:nodetype=&quot;token&quot;&gt;0&lt;/Expires&gt;
+        &lt;Pragma map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Pragma&gt;
+        &lt;Content_Length map:nodetype=&quot;token&quot;&gt;752&lt;/Content_Length&gt;
+        &lt;Date map:nodetype=&quot;token&quot;&gt;Fri, 07 Sep 2018 20:33:45 GMT&lt;/Date&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Powered_By map:nodetype=&quot;token&quot;&gt;Undertow/1&lt;/X_Powered_By&gt;
+    &lt;/responseHTTPHeaders&gt;
+    &lt;responseRawText map:nodetype=&quot;token&quot;&gt;{&amp;quot;userGroups&amp;quot;:[{&amp;quot;id&amp;quot;:null,&amp;quot;name&amp;quot;:&amp;quot;Ungrouped&amp;quot;,&amp;quot;userCount&amp;quot;:2,&amp;quot;weeklyQuota&amp;quot;:null,&amp;quot;monthlyQuota&amp;quot;:null,&amp;quot;quarterlyQuota&amp;quot;:null,&amp;quot;yearlyQuota&amp;quot;:null,&amp;quot;isCheckinRequired&amp;quot;:false,&amp;quot;approvers&amp;quot;:[],&amp;quot;technicianManagerId&amp;quot;:null,&amp;quot;isEscalationManagers&amp;quot;:false,&amp;quot;hasTopologiesMaintenanceAccess&amp;quot;:true,&amp;quot;creatorId&amp;quot;:null,&amp;quot;created&amp;quot;:null,&amp;quot;requestFormId&amp;quot;:null},{&amp;quot;id&amp;quot;:&amp;quot;d015d3c7-374d-407c-b628-aeaef84b17b5&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;KVM-Workshop&amp;quot;,&amp;quot;userCount&amp;quot;:9,&amp;quot;weeklyQuota&amp;quot;:120,&amp;quot;monthlyQuota&amp;quot;:240,&amp;quot;quarterlyQuota&amp;quot;:null,&amp;quot;yearlyQuota&amp;quot;:null,&amp;quot;isCheckinRequired&amp;quot;:false,&amp;quot;approvers&amp;quot;:[],&amp;quot;technicianManagerId&amp;quot;:null,&amp;quot;isEscalationManagers&amp;quot;:false,&amp;quot;hasTopologiesMaintenanceAccess&amp;quot;:false,&amp;quot;creatorId&amp;quot;:&amp;quot;43aabccc-ef9d-425c-a774-dbc050bc6ca4&amp;quot;,&amp;quot;created&amp;quot;:1532359913225,&amp;quot;requestFormId&amp;quot;:null}],&amp;quot;total&amp;quot;:2,&amp;quot;offset&amp;quot;:0,&amp;quot;count&amp;quot;:2}&lt;/responseRawText&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.6</duration>
+                                </behavior>
+                            </emulation>
+                        </item>
+                        <item guid="edc80d3b-55ab-40c4-9a37-00f0d12054a8" action="eval">
+                            <command>
+                                <body>print(userGroupId)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
                         <item guid="b5e661a2-2252-442a-bf80-75c0f0f3d474" action="POST" session="velocity" estimatedStepExecutionTime="0.589">
                             <command>
@@ -247,6 +396,40 @@
                             <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="POST" httpMethod.inherit="false" action="/velocity/api/user/v8/group/[userGroupId]/user/[userId]" action.inherit="false">
                                 <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
                             </applicationProperties>
+                            <emulation>
+                                <behavior>
+                                    <response>{&quot;status&quot;:404,&quot;errorId&quot;:&quot;ENDPOINT_NOT_FOUND&quot;,&quot;message&quot;:&quot;Specified URL path does not refer to any resource&quot;,&quot;moreInfo&quot;:null}</response>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;statusCode value=&quot;404&quot;/&gt;
+    &lt;requestHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Auth_Token map:nodetype=&quot;token&quot;&gt;eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiQmFyZmllbGQsIE1pa2VcIiwgXCJzdGFydF90aW1lXCI6IDE1MzYzNTExNzAsIFwiaWRcIjogXCJtYmFyZmllbGRcIiwgXCJleHBpcmF0aW9uXCI6IDE1MzY0Mzg3NzAsIFwiZG9tYWluXCI6IFwibGRhcFwifSIsICJzaWduYXR1cmUiOiAiNjQyNWYyNWZhZjYzYTZiMzIzZGVmMmRjMDA2Y2ZhY2RiMjJjZTcxMjJjOTZjYTcwYWQ0YjE1ZWQ3YTMzMDYwMzgyYWM2MTBhYjBhNzYxMDRhY2FkMmQ4MjFlYjMxYzczNWI2OTE2MGYyY2ZkZGFlODdiMzkxNTI3MmE2MzcxZmY2NzIzMzdiMjI5NWZiN2JlYjcyNjVjMjM5ZDUxNzU3MzljODE5NmNlMDk0M2Y0N2IzZjEwYzEyMzNhYTI4NDM2OTMyOTE4ZGExZTk1M2MwMDQ4MDFhNGRlYmNmYWQxYzY5NjI3NmQ4MjhiZGY3NzAwMmE1YWI4OTNkMDgxOTMxMDY2MTFhZmQwNjM5YTdkZmE3MjI2ZGJjN2VjYWE4NWMwNTM1OWI4MWYwOGI0MjdkOThlYjIwYTViMTI5ZDViYTg3NWUyMmVhMTY5YjA4M2U0ZmU1ODc2OTQyM2RhZDdhZDQxOTM1NDQwZjM0NDk1MTk4YzVlMjA1YzZiYjk5OTcyNzcyMmJjZjcyYjVkMDg5OWNlYjE4NzEzMDliNjBlNTlhNGU4N2RmOGIyZTRmMmY0NjRjYzc5ZWU3MDg4MDRlYTQ2NmM1MmNiNjVkMTRhYzZlOGZhM2FkMjUwMDczYWYwODZhODM4ZDI3M2M4NmU1OTM3NTFmZjk1ZDgxOTNkNjEifQ==&lt;/X_Auth_Token&gt;
+    &lt;/requestHTTPHeaders&gt;
+    &lt;requestRawText map:nodetype=&quot;token&quot;/&gt;
+    &lt;responseHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Transfer_Encoding map:nodetype=&quot;token&quot;&gt;chunked&lt;/Transfer_Encoding&gt;
+        &lt;Server map:nodetype=&quot;token&quot;&gt;nginx/1.10.3 (Ubuntu)&lt;/Server&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache, no-store, must-revalidate&lt;/Cache_Control&gt;
+        &lt;Connection map:nodetype=&quot;token&quot;&gt;keep-alive&lt;/Connection&gt;
+        &lt;Expires map:nodetype=&quot;token&quot;&gt;0&lt;/Expires&gt;
+        &lt;Pragma map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Pragma&gt;
+        &lt;Date map:nodetype=&quot;token&quot;&gt;Fri, 07 Sep 2018 20:33:47 GMT&lt;/Date&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Powered_By map:nodetype=&quot;token&quot;&gt;Undertow/1&lt;/X_Powered_By&gt;
+    &lt;/responseHTTPHeaders&gt;
+    &lt;responseRawText map:nodetype=&quot;token&quot;&gt;{&amp;quot;status&amp;quot;:404,&amp;quot;errorId&amp;quot;:&amp;quot;ENDPOINT_NOT_FOUND&amp;quot;,&amp;quot;message&amp;quot;:&amp;quot;Specified URL path does not refer to any resource&amp;quot;,&amp;quot;moreInfo&amp;quot;:null}&lt;/responseRawText&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.7</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -272,16 +455,64 @@
                                 <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             </applicationProperties>
+                            <emulation emulate="ALWAYS">
+                                <behavior>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.3</duration>
+                                </behavior>
+                            </emulation>
                         </item>
-                        <item guid="a9a3d569-e559-4dbb-9e38-700c4756a7e1" action="call">
+                        <item guid="a9a3d569-e559-4dbb-9e38-700c4756a7e1" action="call" skip="true">
                             <command>
                                 <body>sendNotification -emailAddress [emailList] -users [userName]</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             <useFieldsInCommand>false</useFieldsInCommand>
+                            <emulation>
+                                <behavior>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>1.5</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                         <item guid="c727dd5c-4dc6-48cf-8e9a-1590c70295eb" action="close" session="email">
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            <emulation>
+                                <behavior>
+                                    <responseType>text</responseType>
+                                    <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                                    <aliases>
+                                        <item name="isEmpty">
+                                            <queryFormatString>.//isEmpty</queryFormatString>
+                                        </item>
+                                    </aliases>
+                                    <duration>0.3</duration>
+                                </behavior>
+                            </emulation>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -315,6 +546,41 @@
                     <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" action="/velocity/api/user/v8/profiles?filter=role::[role]|role::SUPER_ADMIN" action.inherit="false">
                         <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
                     </applicationProperties>
+                    <emulation>
+                        <behavior>
+                            <response>{&quot;total&quot;:4,&quot;offset&quot;:0,&quot;count&quot;:4,&quot;profiles&quot;:[{&quot;id&quot;:&quot;43aabccc-ef9d-425c-a774-dbc050bc6ca4&quot;,&quot;name&quot;:&quot;Daniels, Les&quot;,&quot;description&quot;:&quot;&quot;,&quot;autosetTimeZone&quot;:true,&quot;timeZoneId&quot;:null,&quot;role&quot;:&quot;SUPER_ADMIN&quot;,&quot;email&quot;:&quot;les.daniels@spirent.com&quot;,&quot;receivesEmailNotifications&quot;:true,&quot;created&quot;:1532114571103,&quot;lastModifierId&quot;:null,&quot;lastModified&quot;:1532976915673,&quot;prefersExternalApplicationToHandleConsoleUrls&quot;:false,&quot;receivesDailyReports&quot;:true,&quot;receivesOwnReservationInvitations&quot;:false,&quot;autoApproveFrom&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:&quot;d015d3c7-374d-407c-b628-aeaef84b17b5&quot;}],&quot;login&quot;:&quot;ldaniels&quot;,&quot;homePage&quot;:null,&quot;features&quot;:[],&quot;defaultReportTemplateId&quot;:null,&quot;administeredDeviceGroups&quot;:[],&quot;timeZoneOffset&quot;:-25200000,&quot;isDisabled&quot;:false,&quot;userStatus&quot;:&quot;IDLE&quot;},{&quot;id&quot;:&quot;8dc3409e-901e-4a60-8701-985b1a433dfe&quot;,&quot;name&quot;:&quot;Efremov, Daniil&quot;,&quot;description&quot;:&quot;&quot;,&quot;autosetTimeZone&quot;:true,&quot;timeZoneId&quot;:null,&quot;role&quot;:&quot;ADMIN&quot;,&quot;email&quot;:null,&quot;receivesEmailNotifications&quot;:false,&quot;created&quot;:1533013661921,&quot;lastModifierId&quot;:null,&quot;lastModified&quot;:1533035108405,&quot;prefersExternalApplicationToHandleConsoleUrls&quot;:false,&quot;receivesDailyReports&quot;:false,&quot;receivesOwnReservationInvitations&quot;:false,&quot;autoApproveFrom&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:&quot;d015d3c7-374d-407c-b628-aeaef84b17b5&quot;}],&quot;login&quot;:&quot;defremov&quot;,&quot;homePage&quot;:null,&quot;features&quot;:[],&quot;defaultReportTemplateId&quot;:null,&quot;administeredDeviceGroups&quot;:[],&quot;timeZoneOffset&quot;:-25200000,&quot;isDisabled&quot;:false,&quot;userStatus&quot;:&quot;IDLE&quot;},{&quot;id&quot;:&quot;50946a4f-78f8-4011-96ad-3c82eb05b781&quot;,&quot;name&quot;:&quot;mbarfield&quot;,&quot;description&quot;:&quot;&quot;,&quot;autosetTimeZone&quot;:true,&quot;timeZoneId&quot;:null,&quot;role&quot;:&quot;ADMIN&quot;,&quot;email&quot;:&quot;mike.barfield@spirent.com&quot;,&quot;receivesEmailNotifications&quot;:true,&quot;created&quot;:1532019390871,&quot;lastModifierId&quot;:null,&quot;lastModified&quot;:1536351731501,&quot;prefersExternalApplicationToHandleConsoleUrls&quot;:false,&quot;receivesDailyReports&quot;:true,&quot;receivesOwnReservationInvitations&quot;:false,&quot;autoApproveFrom&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:&quot;d015d3c7-374d-407c-b628-aeaef84b17b5&quot;}],&quot;login&quot;:&quot;mbarfield&quot;,&quot;homePage&quot;:null,&quot;features&quot;:[],&quot;defaultReportTemplateId&quot;:&quot;4304cb5a-8a10-4731-ac1c-6d092bffac45&quot;,&quot;administeredDeviceGroups&quot;:[],&quot;timeZoneOffset&quot;:-25200000,&quot;isDisabled&quot;:false,&quot;userStatus&quot;:&quot;ACTIVE&quot;},{&quot;id&quot;:&quot;01a943d3-817e-4048-ab18-75d59ccf505f&quot;,&quot;name&quot;:&quot;Tech Support&quot;,&quot;description&quot;:&quot;&quot;,&quot;autosetTimeZone&quot;:true,&quot;timeZoneId&quot;:null,&quot;role&quot;:&quot;ADMIN&quot;,&quot;email&quot;:null,&quot;receivesEmailNotifications&quot;:false,&quot;created&quot;:1532119173051,&quot;lastModifierId&quot;:null,&quot;lastModified&quot;:1532959627927,&quot;prefersExternalApplicationToHandleConsoleUrls&quot;:false,&quot;receivesDailyReports&quot;:false,&quot;receivesOwnReservationInvitations&quot;:false,&quot;autoApproveFrom&quot;:[],&quot;groups&quot;:[{&quot;id&quot;:&quot;d015d3c7-374d-407c-b628-aeaef84b17b5&quot;}],&quot;login&quot;:&quot;techsupport&quot;,&quot;homePage&quot;:null,&quot;features&quot;:[],&quot;defaultReportTemplateId&quot;:null,&quot;administeredDeviceGroups&quot;:[],&quot;timeZoneOffset&quot;:-25200000,&quot;isDisabled&quot;:false,&quot;userStatus&quot;:&quot;NO_ACTIVITY_LAST_MONTH&quot;}]}</response>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;statusCode value=&quot;200&quot;/&gt;
+    &lt;requestHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Auth_Token map:nodetype=&quot;token&quot;&gt;eyJwYWNrZXQiOiAie1widXNlcl9uYW1lXCI6IFwiQmFyZmllbGQsIE1pa2VcIiwgXCJzdGFydF90aW1lXCI6IDE1MzYzNTExNzAsIFwiaWRcIjogXCJtYmFyZmllbGRcIiwgXCJleHBpcmF0aW9uXCI6IDE1MzY0Mzg3NzAsIFwiZG9tYWluXCI6IFwibGRhcFwifSIsICJzaWduYXR1cmUiOiAiNjQyNWYyNWZhZjYzYTZiMzIzZGVmMmRjMDA2Y2ZhY2RiMjJjZTcxMjJjOTZjYTcwYWQ0YjE1ZWQ3YTMzMDYwMzgyYWM2MTBhYjBhNzYxMDRhY2FkMmQ4MjFlYjMxYzczNWI2OTE2MGYyY2ZkZGFlODdiMzkxNTI3MmE2MzcxZmY2NzIzMzdiMjI5NWZiN2JlYjcyNjVjMjM5ZDUxNzU3MzljODE5NmNlMDk0M2Y0N2IzZjEwYzEyMzNhYTI4NDM2OTMyOTE4ZGExZTk1M2MwMDQ4MDFhNGRlYmNmYWQxYzY5NjI3NmQ4MjhiZGY3NzAwMmE1YWI4OTNkMDgxOTMxMDY2MTFhZmQwNjM5YTdkZmE3MjI2ZGJjN2VjYWE4NWMwNTM1OWI4MWYwOGI0MjdkOThlYjIwYTViMTI5ZDViYTg3NWUyMmVhMTY5YjA4M2U0ZmU1ODc2OTQyM2RhZDdhZDQxOTM1NDQwZjM0NDk1MTk4YzVlMjA1YzZiYjk5OTcyNzcyMmJjZjcyYjVkMDg5OWNlYjE4NzEzMDliNjBlNTlhNGU4N2RmOGIyZTRmMmY0NjRjYzc5ZWU3MDg4MDRlYTQ2NmM1MmNiNjVkMTRhYzZlOGZhM2FkMjUwMDczYWYwODZhODM4ZDI3M2M4NmU1OTM3NTFmZjk1ZDgxOTNkNjEifQ==&lt;/X_Auth_Token&gt;
+    &lt;/requestHTTPHeaders&gt;
+    &lt;requestRawText map:nodetype=&quot;token&quot;/&gt;
+    &lt;responseHTTPHeaders map:nodetype=&quot;token&quot;&gt;
+        &lt;Server map:nodetype=&quot;token&quot;&gt;nginx/1.10.3 (Ubuntu)&lt;/Server&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache, no-store, must-revalidate&lt;/Cache_Control&gt;
+        &lt;Cache_Control map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Cache_Control&gt;
+        &lt;Connection map:nodetype=&quot;token&quot;&gt;keep-alive&lt;/Connection&gt;
+        &lt;Expires map:nodetype=&quot;token&quot;&gt;0&lt;/Expires&gt;
+        &lt;Pragma map:nodetype=&quot;token&quot;&gt;no-cache&lt;/Pragma&gt;
+        &lt;Content_Length map:nodetype=&quot;token&quot;&gt;2721&lt;/Content_Length&gt;
+        &lt;Date map:nodetype=&quot;token&quot;&gt;Fri, 07 Sep 2018 20:33:42 GMT&lt;/Date&gt;
+        &lt;Content_Type map:nodetype=&quot;token&quot;&gt;application/json&lt;/Content_Type&gt;
+        &lt;X_Powered_By map:nodetype=&quot;token&quot;&gt;Undertow/1&lt;/X_Powered_By&gt;
+    &lt;/responseHTTPHeaders&gt;
+    &lt;responseRawText map:nodetype=&quot;token&quot;&gt;{&amp;quot;total&amp;quot;:4,&amp;quot;offset&amp;quot;:0,&amp;quot;count&amp;quot;:4,&amp;quot;profiles&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;43aabccc-ef9d-425c-a774-dbc050bc6ca4&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Daniels, Les&amp;quot;,&amp;quot;description&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;autosetTimeZone&amp;quot;:true,&amp;quot;timeZoneId&amp;quot;:null,&amp;quot;role&amp;quot;:&amp;quot;SUPER_ADMIN&amp;quot;,&amp;quot;email&amp;quot;:&amp;quot;les.daniels@spirent.com&amp;quot;,&amp;quot;receivesEmailNotifications&amp;quot;:true,&amp;quot;created&amp;quot;:1532114571103,&amp;quot;lastModifierId&amp;quot;:null,&amp;quot;lastModified&amp;quot;:1532976915673,&amp;quot;prefersExternalApplicationToHandleConsoleUrls&amp;quot;:false,&amp;quot;receivesDailyReports&amp;quot;:true,&amp;quot;receivesOwnReservationInvitations&amp;quot;:false,&amp;quot;autoApproveFrom&amp;quot;:[],&amp;quot;groups&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;d015d3c7-374d-407c-b628-aeaef84b17b5&amp;quot;}],&amp;quot;login&amp;quot;:&amp;quot;ldaniels&amp;quot;,&amp;quot;homePage&amp;quot;:null,&amp;quot;features&amp;quot;:[],&amp;quot;defaultReportTemplateId&amp;quot;:null,&amp;quot;administeredDeviceGroups&amp;quot;:[],&amp;quot;timeZoneOffset&amp;quot;:-25200000,&amp;quot;isDisabled&amp;quot;:false,&amp;quot;userStatus&amp;quot;:&amp;quot;IDLE&amp;quot;},{&amp;quot;id&amp;quot;:&amp;quot;8dc3409e-901e-4a60-8701-985b1a433dfe&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Efremov, Daniil&amp;quot;,&amp;quot;description&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;autosetTimeZone&amp;quot;:true,&amp;quot;timeZoneId&amp;quot;:null,&amp;quot;role&amp;quot;:&amp;quot;ADMIN&amp;quot;,&amp;quot;email&amp;quot;:null,&amp;quot;receivesEmailNotifications&amp;quot;:false,&amp;quot;created&amp;quot;:1533013661921,&amp;quot;lastModifierId&amp;quot;:null,&amp;quot;lastModified&amp;quot;:1533035108405,&amp;quot;prefersExternalApplicationToHandleConsoleUrls&amp;quot;:false,&amp;quot;receivesDailyReports&amp;quot;:false,&amp;quot;receivesOwnReservationInvitations&amp;quot;:false,&amp;quot;autoApproveFrom&amp;quot;:[],&amp;quot;groups&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;d015d3c7-374d-407c-b628-aeaef84b17b5&amp;quot;}],&amp;quot;login&amp;quot;:&amp;quot;defremov&amp;quot;,&amp;quot;homePage&amp;quot;:null,&amp;quot;features&amp;quot;:[],&amp;quot;defaultReportTemplateId&amp;quot;:null,&amp;quot;administeredDeviceGroups&amp;quot;:[],&amp;quot;timeZoneOffset&amp;quot;:-25200000,&amp;quot;isDisabled&amp;quot;:false,&amp;quot;userStatus&amp;quot;:&amp;quot;IDLE&amp;quot;},{&amp;quot;id&amp;quot;:&amp;quot;50946a4f-78f8-4011-96ad-3c82eb05b781&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;mbarfield&amp;quot;,&amp;quot;description&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;autosetTimeZone&amp;quot;:true,&amp;quot;timeZoneId&amp;quot;:null,&amp;quot;role&amp;quot;:&amp;quot;ADMIN&amp;quot;,&amp;quot;email&amp;quot;:&amp;quot;mike.barfield@spirent.com&amp;quot;,&amp;quot;receivesEmailNotifications&amp;quot;:true,&amp;quot;created&amp;quot;:1532019390871,&amp;quot;lastModifierId&amp;quot;:null,&amp;quot;lastModified&amp;quot;:1536351731501,&amp;quot;prefersExternalApplicationToHandleConsoleUrls&amp;quot;:false,&amp;quot;receivesDailyReports&amp;quot;:true,&amp;quot;receivesOwnReservationInvitations&amp;quot;:false,&amp;quot;autoApproveFrom&amp;quot;:[],&amp;quot;groups&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;d015d3c7-374d-407c-b628-aeaef84b17b5&amp;quot;}],&amp;quot;login&amp;quot;:&amp;quot;mbarfield&amp;quot;,&amp;quot;homePage&amp;quot;:null,&amp;quot;features&amp;quot;:[],&amp;quot;defaultReportTemplateId&amp;quot;:&amp;quot;4304cb5a-8a10-4731-ac1c-6d092bffac45&amp;quot;,&amp;quot;administeredDeviceGroups&amp;quot;:[],&amp;quot;timeZoneOffset&amp;quot;:-25200000,&amp;quot;isDisabled&amp;quot;:false,&amp;quot;userStatus&amp;quot;:&amp;quot;ACTIVE&amp;quot;},{&amp;quot;id&amp;quot;:&amp;quot;01a943d3-817e-4048-ab18-75d59ccf505f&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;Tech Support&amp;quot;,&amp;quot;description&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;autosetTimeZone&amp;quot;:true,&amp;quot;timeZoneId&amp;quot;:null,&amp;quot;role&amp;quot;:&amp;quot;ADMIN&amp;quot;,&amp;quot;email&amp;quot;:null,&amp;quot;receivesEmailNotifications&amp;quot;:false,&amp;quot;created&amp;quot;:1532119173051,&amp;quot;lastModifierId&amp;quot;:null,&amp;quot;lastModified&amp;quot;:1532959627927,&amp;quot;prefersExternalApplicationToHandleConsoleUrls&amp;quot;:false,&amp;quot;receivesDailyReports&amp;quot;:false,&amp;quot;receivesOwnReservationInvitations&amp;quot;:false,&amp;quot;autoApproveFrom&amp;quot;:[],&amp;quot;groups&amp;quot;:[{&amp;quot;id&amp;quot;:&amp;quot;d015d3c7-374d-407c-b628-aeaef84b17b5&amp;quot;}],&amp;quot;login&amp;quot;:&amp;quot;techsupport&amp;quot;,&amp;quot;homePage&amp;quot;:null,&amp;quot;features&amp;quot;:[],&amp;quot;defaultReportTemplateId&amp;quot;:null,&amp;quot;administeredDeviceGroups&amp;quot;:[],&amp;quot;timeZoneOffset&amp;quot;:-25200000,&amp;quot;isDisabled&amp;quot;:false,&amp;quot;userStatus&amp;quot;:&amp;quot;NO_ACTIVITY_LAST_MONTH&amp;quot;}]}&lt;/responseRawText&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.7</duration>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="2333c09a-fe8d-4f36-8add-f7350c8fbcaa" action="eval">
                     <command>
@@ -395,33 +661,127 @@
                         <body>noreply.velocity@gmail.com</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.3</duration>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="4d34137c-2948-471d-a6f6-c1b7be680a7e" action="to" session="email">
                     <command>
                         <body>[emailAddress]</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.1</duration>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="752989ad-be3a-4e6c-9c7c-c710564d4fde" action="subject" session="email">
                     <command>
                         <body>New user logged in to Velocity notification</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="c1808e1b-2277-4020-85d0-b3c70780bbd1" action="writeLine" session="email">
                     <command>
                         <body>This is a notification to let you know user with this login id has logged into the system:</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.1</duration>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="c73019f7-e935-4025-818e-680e804b62e4" action="writeLine" session="email">
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="0de7513d-6239-4a39-9859-98b0475a5b70" action="writeLine" session="email">
                     <command>
                         <body>[users]</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;true&lt;/isEmpty&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.1</duration>
+                        </behavior>
+                    </emulation>
                 </item>
                 <item guid="4b2a294a-ceee-4211-9d10-09738cc6664f" action="send" session="email">
                     <postProcessing>
@@ -461,6 +821,79 @@
                         </analysisRules>
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    <emulation>
+                        <behavior>
+                            <response>Field_Name            Value                                                                         
+----------------------------------------------------------------------------------------------------
+Result                Success                                                                       
+SMTP_Server           smtp.gmail.com                                                                
+SMTP_User             spirentito.se@gmail.com                                                       
+From                  noreply.velocity@gmail.com                                                    
+To                    mike.barfield@spirent.com                                                     
+CC                                                                                                  
+BCC                                                                                                 
+Subject               New user logged in to Velocity notification                                   
+Attachment                                                                                          
+Content-Type          text/plain                                                                    
+</response>
+                            <responseType>text</responseType>
+                            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;false&lt;/isEmpty&gt;
+    &lt;MailApplication&gt;
+        &lt;Send map:nodetype=&quot;table&quot;&gt;
+            &lt;Result map:endcol=&quot;29&quot; map:line=&quot;2&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;Success&lt;/Result&gt;
+            &lt;SMTP_Server map:endcol=&quot;36&quot; map:line=&quot;3&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;smtp.gmail.com&lt;/SMTP_Server&gt;
+            &lt;SMTP_User map:endcol=&quot;45&quot; map:line=&quot;4&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;spirentito.se@gmail.com&lt;/SMTP_User&gt;
+            &lt;From map:endcol=&quot;48&quot; map:line=&quot;5&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;noreply.velocity@gmail.com&lt;/From&gt;
+            &lt;To map:endcol=&quot;47&quot; map:line=&quot;6&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;mike.barfield@spirent.com&lt;/To&gt;
+            &lt;CC map:endcol=&quot;22&quot; map:line=&quot;7&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;/&gt;
+            &lt;BCC map:endcol=&quot;22&quot; map:line=&quot;8&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;/&gt;
+            &lt;Subject map:endcol=&quot;65&quot; map:line=&quot;9&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;New user logged in to Velocity notification&lt;/Subject&gt;
+            &lt;Attachment map:endcol=&quot;22&quot; map:line=&quot;10&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;/&gt;
+            &lt;Content-Type map:endcol=&quot;32&quot; map:line=&quot;11&quot; map:nodetype=&quot;token&quot; map:startcol=&quot;22&quot;&gt;text/plain&lt;/Content-Type&gt;
+        &lt;/Send&gt;
+    &lt;/MailApplication&gt;
+&lt;/structure&gt;
+</structuredData>
+                            <aliases>
+                                <item name="isEmpty">
+                                    <queryFormatString>.//isEmpty</queryFormatString>
+                                </item>
+                                <item name="Result">
+                                    <queryFormatString>.//Send/Result</queryFormatString>
+                                </item>
+                                <item name="SMTP_Server">
+                                    <queryFormatString>.//Send/SMTP_Server</queryFormatString>
+                                </item>
+                                <item name="SMTP_User">
+                                    <queryFormatString>.//Send/SMTP_User</queryFormatString>
+                                </item>
+                                <item name="From">
+                                    <queryFormatString>.//Send/From</queryFormatString>
+                                </item>
+                                <item name="To">
+                                    <queryFormatString>.//Send/To</queryFormatString>
+                                </item>
+                                <item name="CC">
+                                    <queryFormatString>.//Send/CC</queryFormatString>
+                                </item>
+                                <item name="BCC">
+                                    <queryFormatString>.//Send/BCC</queryFormatString>
+                                </item>
+                                <item name="Subject">
+                                    <queryFormatString>.//Send/Subject</queryFormatString>
+                                </item>
+                                <item name="Attachment">
+                                    <queryFormatString>.//Send/Attachment</queryFormatString>
+                                </item>
+                                <item name="Content-Type">
+                                    <queryFormatString>.//Send/Content-Type</queryFormatString>
+                                </item>
+                            </aliases>
+                            <duration>0.1</duration>
+                        </behavior>
+                    </emulation>
                 </item>
             </steps>
             <arguments>
