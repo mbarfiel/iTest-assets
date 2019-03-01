@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<testCase version="7.1.0.201804110601">
+<testCase version="7.2.0.201812200559">
     <general>
         <documentation>Automatically authorize new users and add them to default user group</documentation>
         <notes>This will automatically add users to a default user groups when they login and send a notification to the admins</notes>
@@ -7,13 +7,16 @@
         <language>Python</language>
     </general>
     <execution>
-        <parameters version="7.1.0.201804110601">
+        <parameters version="7.2.0.201812200559">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <email pt:description="email for user">spirentito.se@gmail.com</email>
                     <password pt:description="email password" pt:mask="true">OYFutY2DryV1FmnoBotBfA==</password>
-                    <groupName pt:description="User group to add new users">KVM-Workshop</groupName>
-                    <role pt:description="role used to send emails - e.g. ADMIN, USER">ADMIN</role>
+                    <groupName pt:description="User group to add new users">demo</groupName>
+                    <role pt:description="role used to send emails - e.g. ADMIN, USER">USER</role>
+                    <velSuperUser pt:description="User to send system messages">spirent</velSuperUser>
+                    <velSuperUserPassword pt:description="User pwd to send system messages" pt:mask="true">Ybd7Az8JCJQJor6ZZIWzzg==</velSuperUserPassword>
+                    <userGroupId pt:description="User group to send messages to when new user logs in">1a56c325-2378-4a5a-a2f3-e9153b864b00</userGroupId>
                 </parameters>
             </parameters>
         </parameters>
@@ -21,42 +24,37 @@
     <procedures>
         <item name="main">
             <steps>
-                <item guid="d62cacf1-81c0-4319-8a69-17b714b8610d" action="comment">
+                <item guid="d62cacf1-81c0-4319-8a69-17b714b8610d" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Open sessions</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="fd6dd465-2253-4e11-b381-57a9389ca970" action="comment">
+                <item guid="fd6dd465-2253-4e11-b381-57a9389ca970" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>set variables</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="83579c4c-02f8-4741-bf94-33532b1a53ea" action="eval">
+                <item guid="83579c4c-02f8-4741-bf94-33532b1a53ea" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>token = velocity(&apos;token&apos;)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="095da7f0-cc18-4e9e-87fe-3ae586486d88" action="eval">
+                <item guid="095da7f0-cc18-4e9e-87fe-3ae586486d88" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>url = velocity(&apos;url&apos;)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="b7d9fe14-6ded-4f46-aa86-274e3af5ffb7" action="eval">
+                <item guid="b7d9fe14-6ded-4f46-aa86-274e3af5ffb7" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>print(url)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="5b9e9626-1aa9-42b3-b280-c5d7afb19752" action="eval">
+                <item guid="5b9e9626-1aa9-42b3-b280-c5d7afb19752" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>print(token)</body>
                     </command>
@@ -78,9 +76,8 @@
                         </analysisRules>
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="5e03c341-3e6f-4fd0-992a-d40c03b9fd9a" action="comment">
+                <item guid="5e03c341-3e6f-4fd0-992a-d40c03b9fd9a" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Add new user to user group on first login</body>
                     </command>
@@ -118,7 +115,7 @@
                                 </behavior>
                             </emulation>
                         </item>
-                        <item guid="1bb792cd-95cf-4416-b2c9-ba7878547e69" action="call">
+                        <item guid="1bb792cd-95cf-4416-b2c9-ba7878547e69" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>getEmailsPerUserRole -role [param(&apos;role&apos;)] -token [token]</body>
                             </command>
@@ -142,7 +139,6 @@
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                             <emulation>
                                 <behavior>
                                     <response>les.daniels@spirent.com;mike.barfield@spirent.com</response>
@@ -176,6 +172,8 @@
                                         <processorInfo ruleType="store">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                 <storageLocation>userId</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -188,6 +186,8 @@
                                         <processorInfo ruleType="store">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                 <storageLocation>userName</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -242,26 +242,23 @@
                                 </behavior>
                             </emulation>
                         </item>
-                        <item guid="f345afce-ae1a-47fd-b9ee-61f26afa9796" action="comment">
+                        <item guid="f345afce-ae1a-47fd-b9ee-61f26afa9796" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Get user group from paramters</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
-                        <item guid="0012091c-dd75-4ff4-a5b7-f4b22f7e9673" action="eval">
+                        <item guid="0012091c-dd75-4ff4-a5b7-f4b22f7e9673" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>userGroup = param(&apos;groupName&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
-                        <item guid="d0ea2371-bc90-4c6a-b683-727a08e615f4" action="comment">
+                        <item guid="d0ea2371-bc90-4c6a-b683-727a08e615f4" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>default workshop name is hardcoded and needs fixed later</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
                         <item guid="47fa610b-6c1f-4ac6-9599-e3defddff79b" action="GET" session="velocity" estimatedStepExecutionTime="0.636">
                             <command>
@@ -272,12 +269,14 @@
                                     <item>
                                         <extractorInfo extractorType="query">
                                             <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                <query>mapped/Json/userGroups/item[name = &apos;KVM-Workshop&apos;]/id</query>
+                                                <query>mapped/Json/userGroups/item[name = &apos;demo&apos;]/id</query>
                                             </extractorProperties>
                                         </extractorInfo>
                                         <processorInfo ruleType="store">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                 <storageLocation>userGroupId</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -290,6 +289,8 @@
                                         <processorInfo ruleType="store">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                 <storageLocation>userGroupId</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                             </ruleProperties>
                                         </processorInfo>
                                         <skip>true</skip>
@@ -346,12 +347,11 @@
                                 </behavior>
                             </emulation>
                         </item>
-                        <item guid="edc80d3b-55ab-40c4-9a37-00f0d12054a8" action="eval">
+                        <item guid="edc80d3b-55ab-40c4-9a37-00f0d12054a8" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>print(userGroupId)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
                         <item guid="b5e661a2-2252-442a-bf80-75c0f0f3d474" action="POST" session="velocity" estimatedStepExecutionTime="0.589">
                             <command>
@@ -433,14 +433,13 @@
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="7db7cae2-658b-4ee5-9f6e-5f25b496bd2b" action="comment">
+                <item guid="7db7cae2-658b-4ee5-9f6e-5f25b496bd2b" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Send email to admins about new user</body>
                     </command>
                     <nestedSteps>
-                        <item guid="4869b18c-14c5-44d8-b7ce-fc833e2ba2a4" action="open" session="email">
+                        <item guid="4869b18c-14c5-44d8-b7ce-fc833e2ba2a4" action="open" session="email" skip="true">
                             <command>
                                 <body>project://ui_mail_com/referenceSessionProfile/mail.ffsp</body>
                             </command>
@@ -472,12 +471,11 @@
                                 </behavior>
                             </emulation>
                         </item>
-                        <item guid="a9a3d569-e559-4dbb-9e38-700c4756a7e1" action="call" skip="true">
+                        <item guid="a9a3d569-e559-4dbb-9e38-700c4756a7e1" action="call" skip="true" useFieldsInCommand="false">
                             <command>
                                 <body>sendNotification -emailAddress [emailList] -users [userName]</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                             <emulation>
                                 <behavior>
                                     <responseType>text</responseType>
@@ -495,7 +493,7 @@
                                 </behavior>
                             </emulation>
                         </item>
-                        <item guid="c727dd5c-4dc6-48cf-8e9a-1590c70295eb" action="close" session="email">
+                        <item guid="c727dd5c-4dc6-48cf-8e9a-1590c70295eb" action="close" session="email" skip="true">
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                             <emulation>
                                 <behavior>
@@ -516,7 +514,18 @@
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
+                </item>
+                <item guid="b87d5349-8215-4240-bc85-294b0b17b401" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Send system message</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="3c035035-4da2-44c6-a97a-5bc8599ae3e7" action="call" useFieldsInCommand="false">
+                    <command>
+                        <body>sendSystemNotification -users [userName] -token [token] -userGroupId param(&apos;userGroupId&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
         </item>
@@ -538,6 +547,8 @@
                                 <processorInfo ruleType="store">
                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                         <storageLocation>emails</storageLocation>
+                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                     </ruleProperties>
                                 </processorInfo>
                             </item>
@@ -582,58 +593,51 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="2333c09a-fe8d-4f36-8add-f7350c8fbcaa" action="eval">
+                <item guid="2333c09a-fe8d-4f36-8add-f7350c8fbcaa" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>emailList = &quot;&quot;</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="cca17031-9297-46b2-a277-6f265414103b" action="for">
+                <item guid="cca17031-9297-46b2-a277-6f265414103b" action="for" useFieldsInCommand="false">
                     <command>
                         <body>email in emails:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="12185fb8-3265-43f8-9dfc-e500d030c39c" action="comment">
+                        <item guid="12185fb8-3265-43f8-9dfc-e500d030c39c" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>list emails</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
-                        <item guid="92ab15aa-cae6-4b7d-900b-5f2f655dc020" action="if">
+                        <item guid="92ab15aa-cae6-4b7d-900b-5f2f655dc020" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>email != &quot;&quot;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="a6be2cfe-09b4-452d-9d87-c3b1e3b536d0" action="eval">
+                                <item guid="a6be2cfe-09b4-452d-9d87-c3b1e3b536d0" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>emailList = emailList + &quot;;&quot; + email</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                    <useFieldsInCommand>false</useFieldsInCommand>
                                 </item>
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                            <useFieldsInCommand>false</useFieldsInCommand>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="bafe94f9-2376-489c-9574-d63b937ca0b1" action="eval">
+                <item guid="bafe94f9-2376-489c-9574-d63b937ca0b1" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>emailList = emailList[1:]</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
-                <item guid="979e6f67-936d-4554-8759-de0677e61900" action="eval">
+                <item guid="979e6f67-936d-4554-8759-de0677e61900" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>print(emailList)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                    <useFieldsInCommand>false</useFieldsInCommand>
                 </item>
                 <item guid="9b2257e3-7232-4db1-ae0d-08cec39e5409" action="return">
                     <command>
@@ -656,7 +660,7 @@
         </item>
         <item name="sendNotification">
             <steps>
-                <item guid="a8742c79-47f9-4410-bc47-fafc35c790fb" action="from" session="email">
+                <item guid="a8742c79-47f9-4410-bc47-fafc35c790fb" action="from" session="email" skip="true">
                     <command>
                         <body>noreply.velocity@gmail.com</body>
                     </command>
@@ -678,7 +682,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="4d34137c-2948-471d-a6f6-c1b7be680a7e" action="to" session="email">
+                <item guid="4d34137c-2948-471d-a6f6-c1b7be680a7e" action="to" session="email" skip="true">
                     <command>
                         <body>[emailAddress]</body>
                     </command>
@@ -700,7 +704,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="752989ad-be3a-4e6c-9c7c-c710564d4fde" action="subject" session="email">
+                <item guid="752989ad-be3a-4e6c-9c7c-c710564d4fde" action="subject" session="email" skip="true">
                     <command>
                         <body>New user logged in to Velocity notification</body>
                     </command>
@@ -721,7 +725,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="c1808e1b-2277-4020-85d0-b3c70780bbd1" action="writeLine" session="email">
+                <item guid="c1808e1b-2277-4020-85d0-b3c70780bbd1" action="writeLine" session="email" skip="true">
                     <command>
                         <body>This is a notification to let you know user with this login id has logged into the system:</body>
                     </command>
@@ -743,7 +747,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="c73019f7-e935-4025-818e-680e804b62e4" action="writeLine" session="email">
+                <item guid="c73019f7-e935-4025-818e-680e804b62e4" action="writeLine" session="email" skip="true">
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                     <emulation>
                         <behavior>
@@ -761,7 +765,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="0de7513d-6239-4a39-9859-98b0475a5b70" action="writeLine" session="email">
+                <item guid="0de7513d-6239-4a39-9859-98b0475a5b70" action="writeLine" session="email" skip="true">
                     <command>
                         <body>[users]</body>
                     </command>
@@ -783,7 +787,7 @@
                         </behavior>
                     </emulation>
                 </item>
-                <item guid="4b2a294a-ceee-4211-9d10-09738cc6664f" action="send" session="email">
+                <item guid="4b2a294a-ceee-4211-9d10-09738cc6664f" action="send" session="email" skip="true">
                     <postProcessing>
                         <analysisRules>
                             <item>
@@ -817,6 +821,7 @@
                                         </actionsWhenFalse>
                                     </ruleProperties>
                                 </processorInfo>
+                                <skip>true</skip>
                             </item>
                         </analysisRules>
                     </postProcessing>
@@ -903,6 +908,70 @@ Content-Type          text/plain
                 </item>
                 <item name="users">
                     <description>New users that are added to the system</description>
+                </item>
+            </arguments>
+        </item>
+        <item name="sendSystemNotification">
+            <steps>
+                <item guid="e9725d2e-98f9-4bf1-9a6f-30fad710d748" action="comment" skip="true" useFieldsInCommand="false">
+                    <command>
+                        <body>debug add your userid to payload</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="255e3038-58de-4e73-b9a0-c2ee8f7bf995" action="POST" session="velocity" estimatedStepExecutionTime="0.527">
+                            <command>
+                                <body>/velocity/api/message/v6/message</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="POST" httpMethod.inherit="false" action="/velocity/api/message/v6/message" action.inherit="false">
+                                <message inherit="false">{
+  &quot;html&quot;: false,
+  &quot;userId&quot;: &quot;fdf02b6c-2bd7-4fc5-b480-4aa74e99a322&quot;,
+  &quot;subject&quot;: &quot;New user access: [users]&quot;,
+  &quot;message&quot;: &quot;New user has logged into the system and added to the demo pool&quot;,
+  &quot;origin&quot;: &quot;Automated System Message&quot;
+}</message>
+                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                            </applicationProperties>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="84ba3f53-5011-4da7-8863-21ba434cf53d" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Send system message to admins</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="b9bed4ea-b059-4b6f-836e-56ac0be52fe9" action="POST" session="velocity" estimatedStepExecutionTime="0.527">
+                            <command>
+                                <body>/velocity/api/message/v6/message</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="POST" httpMethod.inherit="false" action="/velocity/api/message/v6/message" action.inherit="false">
+                                <message inherit="false">{
+  &quot;html&quot;: false,
+  &quot;userGroupId&quot;: &quot;[userGroupId]&quot;,
+  &quot;subject&quot;: &quot;New user access: [users]&quot;,
+  &quot;message&quot;: &quot;New user has logged into the system and added to the demo pool&quot;,
+  &quot;origin&quot;: &quot;Automated System Message&quot;
+}</message>
+                                <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                            </applicationProperties>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="users">
+                    <description>New users that are added to the system</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+                <item name="token">
+                    <description>Authentication token</description>
+                    <isMandatory>true</isMandatory>
+                </item>
+                <item name="userGroupId">
+                    <description>Valid user group ID to send messages</description>
+                    <isMandatory>true</isMandatory>
                 </item>
             </arguments>
         </item>
